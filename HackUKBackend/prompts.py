@@ -21,3 +21,26 @@ analyse_in_fridge = '''(
     }...,----"""
                         )
                     '''
+
+generate_recipes = '''Given the list of items in a fridge suggest possible recipes that I can make
+                    Output each recipe with its name and ingredients in a dictionary
+                    give the respones in json e.g.:
+                    {
+                        "name": "Tomato Salad",
+                        "ingredients": [
+                            {"item": "Tomatoes", "quantity": "3"},
+                            {"item": "Carrots", "quantity": "2"},
+                            {"item": "Green onions", "quantity": "a few"},
+                            {"item": "Salad dressing", "quantity": "a few tablespoons"}
+                        ]
+                    },
+                    {
+                        "name": "Ketchup and Egg Sandwich",
+                        "ingredients": [
+                            {"item": "Ketchup", "quantity": "a few tablespoons"},
+                            {"item": "Eggs", "quantity": "2"},
+                            {"item": "Bread", "quantity": "2 slices"}
+                        ]
+                    }
+                    
+                    ingredients:'''
