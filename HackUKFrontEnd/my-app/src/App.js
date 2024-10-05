@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CssVarsProvider, Container, Box, Typography, Select, Option, Button, Input, Checkbox, Textarea, CircularProgress } from '@mui/joy';
 import io from 'socket.io-client';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function App() {
-  // State for user preferences
   const [preferences, setPreferences] = useState({
     vegetarian: false,
     highProtein: false,
@@ -15,7 +15,10 @@ function App() {
   const [goalDetails, setGoalDetails] = useState('');
   const [image, setImage] = useState(null);  // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
-  const [ingredients, setIngredients] = useState([]);  // State to store ingredients list from backend
+  const [ingredients, setIngredients] = useState([]);  // State to store ingredients list
+  const [isNutritionalSetupOpen, setIsNutritionalSetupOpen] = useState(true); // Toggle for collapsible form
+  const [isUploadFileSetupOpen, setIsUploadFileSetupOpen] = useState(true); // Toggle for collapsible form
+  const [isFilledFromStorage, setIsFilledFromStorage] = useState(false); // Track if data loaded from storage
   const socketRef = useRef();
 
   // Initialize WebSocket connection to the backend
@@ -25,6 +28,39 @@ function App() {
       reconnectionDelay: 1000,
     });
   }
+
+  // Load data from session storage on page load
+  useEffect(() => {
+    const storedData = JSON.parse(sessionStorage.getItem('nutritionalSetup'));
+    if (storedData) {
+      setPreferences((prev) => ({
+        ...prev,
+        vegetarian: storedData.preferences.includes('vegetarian'),
+        highProtein: storedData.preferences.includes('highProtein'),
+        lowCarb: storedData.preferences.includes('lowCarb'),
+        vegan: storedData.preferences.includes('vegan'),
+      }));
+      setRestrictions(storedData.restrictions);
+      setGoalType(storedData.goalType);
+      setGoalDetails(storedData.goalDetails);
+      setIsNutritionalSetupOpen(false);
+      setIsFilledFromStorage(true);
+    }
+  }, []);
+
+  // Load data from localStorage on page load
+  useEffect(() => {
+    const storedIngredients = JSON.parse(localStorage.getItem('ingredientsList'));
+    if (storedIngredients) {
+      setIngredients(storedIngredients);
+    }
+  }, []);
+
+  // Clear the ingredients list both from state and localStorage
+  const handleClearIngredients = () => {
+    setIngredients([]);
+    localStorage.removeItem('ingredientsList');
+  };
 
   // Handle settings form submission
   const handleSettingsSubmit = async (event) => {
@@ -39,13 +75,15 @@ function App() {
       goalDetails,
     };
 
+    // Save the user data to session storage
+    sessionStorage.setItem('nutritionalSetup', JSON.stringify(userData));
+
     // Send data to the backend
     socketRef.current.emit('submit_user_data', userData);
 
-    // Reset form after submission
-    setRestrictions('');
-    setGoalType('');
-    setGoalDetails('');
+    // Collapse form if filled in
+    setIsNutritionalSetupOpen(false);
+    setIsFilledFromStorage(true);
   };
 
   // Handle checkbox changes for preferences
@@ -78,35 +116,72 @@ function App() {
     }
   };
 
-  // Handle response from backend
+  // Handle response from backend, append new ingredients to the list
   socketRef.current.on('response', (data) => {
     if (data.ingredients) {
-      console.log('Received Ingredients:', data.ingredients);  // Debugging: Check if ingredients are received
-      setIngredients(data.ingredients.ingredients);
+      setIngredients((prevIngredients) => [...prevIngredients, ...data.ingredients.ingredients]);
+      localStorage.setItem('ingredientsList', JSON.stringify(data.ingredients.ingredients));
       setLoading(false);
-
-      console.log(ingredients)
     }
   });
 
+  // Handle changes in the table
+  const handleItemChange = (index, field, value) => {
+    const updatedIngredients = ingredients.map((ingredient, i) => 
+      i === index ? { ...ingredient, [field]: value } : ingredient
+    );
+    setIngredients(updatedIngredients);
+    localStorage.setItem('ingredientsList', JSON.stringify(ingredients));
+  };
+
+  // Add new row to the ingredients table
+  const handleAddRow = () => {
+    setIngredients([...ingredients, { item: '', quantity: '' }]);
+    localStorage.setItem('ingredientsList', JSON.stringify(ingredients));
+  };
+
+  // Remove a specific row from the ingredients table
+  const handleRemoveRow = (index) => {
+    const updatedIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(updatedIngredients);
+    localStorage.setItem('ingredientsList', JSON.stringify(ingredients));
+  };
+
+  const handleSaveChanges = () => {
+    localStorage.setItem('ingredientsList', JSON.stringify(ingredients));
+    console.log('Updated Ingredients:', ingredients);
+  };
+
   return (
     <CssVarsProvider>
-      <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Centered Title with Fridge Emoji */}
-        <Box sx={{ width: '100%', backgroundColor: '#f0f0f0', padding: '20px', textAlign: 'center', marginBottom: '20px'}}>
-          {/* Centered Title with Fridge Emoji */}
+        <Box sx={{ width: '100%', backgroundColor: '#f0f0f0', padding: '20px', textAlign: 'center', marginBottom: '20px' }}>
           <Typography level="h1" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
             LeSmartRepas 🧊
           </Typography>
         </Box>
-        
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '90%' }}>
-          {/* Left Side: Settings Form */}
-          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px' }}>
-            <Typography level="h2" mb={5}>
-              Nutritional Setup
-            </Typography>
 
+        {/* Nutritional Setup Section */}
+        <Box sx={{ width: '100%', maxWidth: '900px', border: '1px solid #ccc', borderRadius: '10px', padding: '20px', marginBottom: '20px' }}>
+        <Box sx={{ width: '100%', maxWidth: '900px', marginBottom: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Typography level="h2" sx={{ display: 'inline-block' }}>
+            Nutritional Setup
+          </Typography>
+          {isFilledFromStorage && (
+            <CheckCircleIcon sx={{ color: 'green', ml: 1, verticalAlign: 'middle' }} />
+          )}
+          <Button
+            variant="outlined"
+            onClick={() => setIsNutritionalSetupOpen(!isNutritionalSetupOpen)}
+            sx={{ textTransform: 'none', marginLeft: 'auto' }}
+          >
+            {isNutritionalSetupOpen ? 'Collapse' : 'Edit'}
+          </Button>
+        </Box>
+        
+          {isNutritionalSetupOpen && (
             <Box
               component="form"
               onSubmit={handleSettingsSubmit}
@@ -114,7 +189,7 @@ function App() {
             >
               {/* User Inputs: Nutritional Preferences (with Checkboxes) */}
               <Typography level="h3">Nutritional Preferences</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, width: '100%', marginBottom: '20px'}}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, width: '100%', marginBottom: '20px' }}>
                 <Checkbox
                   label="Vegetarian"
                   checked={preferences.vegetarian}
@@ -187,74 +262,135 @@ function App() {
                 Submit
               </Button>
             </Box>
-          </Box>
+          )}
+        </Box>
+        </Box>
+        
 
-          {/* Right Side: Image Upload and Ingredients Table */}
-          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px', marginLeft: '20px' }}>
-            <Typography level="h2" mb={5}>
-              Upload Image & Ingredients
-            </Typography>
+        {/* Upload Image & Ingredients Section */}
+        <Box sx={{ width: '100%', maxWidth: '900px', border: '1px solid #ccc', borderRadius: '10px', padding: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Typography level="h2" >
+            Upload Image & Ingredients
+          </Typography>
+          {ingredients.length > 0 && (
+            <CheckCircleIcon sx={{ color: 'green', ml: 1, verticalAlign: 'middle' }} />
+          )}
+          <Button
+            variant="outlined"
+            onClick={() => setIsUploadFileSetupOpen(!isUploadFileSetupOpen)}
+            sx={{ textTransform: 'none', marginLeft: 'auto' }}
+          >
+            {isUploadFileSetupOpen ? 'Collapse' : 'Edit'}
+          </Button>
+        </Box>
 
-            <Box
-              component="form"
-              onSubmit={handleImageSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}
+          {isUploadFileSetupOpen && (<Box
+            component="form"
+            onSubmit={handleImageSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}
+          >
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              sx={{
+                mb: 2,
+                padding: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                width: '100%',
+                '&:hover': {
+                  borderColor: '#007bff',
+                },
+                '&:focus': {
+                  outline: 'none',
+                  borderColor: '#007bff',
+                  boxShadow: '0 0 0 2px rgba(0, 123, 255, 0.25)',
+                },
+              }}
+            />
+            <Button
+              type="submit"
+              variant="solid"
+              color="primary"
+              disabled={!image || loading}
             >
-              <Input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                sx={{
-                  mb: 2,
-                  padding: '10px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  width: '100%',
-                  '&:hover': {
-                    borderColor: '#007bff',
-                  },
-                  '&:focus': {
-                    outline: 'none',
-                    borderColor: '#007bff',
-                    boxShadow: '0 0 0 2px rgba(0, 123, 255, 0.25)',
-                  },
-                }}
-              />
-              <Button
-                type="submit"
-                variant="solid"
-                color="primary"
-                disabled={!image || loading}
-              >
-                {loading ? <CircularProgress size="sm" /> : 'Submit Image'}
-              </Button>
-            </Box>
-
-            {/* Ingredients Table */}
-            {ingredients.length > 0 && (
-              <Box sx={{ mt: 4 }}>
-                <Typography level="h3" mb={2}>
-                  Detected Ingredients
-                </Typography>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr>
-                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Item</th>
-                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ingredients.map((ingredient, index) => (
-                      <tr key={index}>
-                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{ingredient.item}</td>
-                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{ingredient.quantity}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </Box>
-            )}
+              {loading ? <CircularProgress size="sm" /> : 'Submit Image'}
+            </Button>
+          </Box>)}
           </Box>
+        <Box>
+
+          {/* Ingredients Table */}
+          {ingredients.length > 0 && (
+            <Box sx={{ mt: 4 }}>
+              <Typography level="h3" mb={2}>
+                Detected Ingredients
+              </Typography>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    <th style={{ border: '1px solid #ccc', padding: '8px' }}>Item</th>
+                    <th style={{ border: '1px solid #ccc', padding: '8px' }}>Quantity</th>
+                    <th style={{ border: '1px solid #ccc', padding: '8px' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ingredients.map((ingredient, index) => (
+                    <tr key={index}>
+                      <td style={{ border: '1px solid #ccc', padding: '8px' }}>
+                        <Input
+                          value={ingredient.item}
+                          onChange={(e) => handleItemChange(index, 'item', e.target.value)}
+                          sx={{ width: '100%' }}
+                        />
+                      </td>
+                      <td style={{ border: '1px solid #ccc', padding: '8px' }}>
+                        <Input
+                          value={ingredient.quantity}
+                          onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                          sx={{ width: '100%' }}
+                        />
+                      </td>
+                      <td style={{ border: '1px solid #ccc', padding: '8px' }}>
+                        <Button
+                          variant="solid"
+                          color="danger"
+                          onClick={() => handleRemoveRow(index)}
+                        >
+                          Remove
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 0.5, mt: 2 }}>
+                <Button
+                  variant="solid"
+                  color="primary"
+                  onClick={handleAddRow}
+                >
+                  Add Row
+                </Button>
+                <Button
+                  variant="solid"
+                  color="primary"
+                  onClick={handleSaveChanges}
+                >
+                  Save Changes
+                </Button>
+                <Button
+                  variant="solid"
+                  color="danger"
+                  onClick={handleClearIngredients}
+                >
+                  Clear List
+                </Button>
+              </Box>
+            </Box>
+          )}
         </Box>
       </Container>
     </CssVarsProvider>

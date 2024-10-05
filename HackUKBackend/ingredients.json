@@ -1,72 +1,76 @@
 {
     "ingredients": [
         {
+            "item": "Milk",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "Nearly empty bottle"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "Full container"
+        },
+        {
+            "item": "Pasta Sauce",
+            "quantity": "Full jar"
+        },
+        {
+            "item": "Hummus",
+            "quantity": "Half-full container"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "Head of lettuce, approximately 1"
+        },
+        {
             "item": "Tomatoes",
             "quantity": "Approximately 6 tomatoes"
         },
         {
-            "item": "Bell Peppers",
-            "quantity": "Includes at least 1 red bell pepper and 1 yellow bell pepper"
+            "item": "Apples",
+            "quantity": "Approximately 6 apples"
         },
         {
-            "item": "Cucumbers",
-            "quantity": "Approximately 3 cucumbers"
+            "item": "Bananas",
+            "quantity": "Bunch of 4 bananas"
         },
         {
             "item": "Carrots",
-            "quantity": "Approximately 6 carrots"
+            "quantity": "Approximately 10 carrots"
         },
         {
-            "item": "Limes",
-            "quantity": "Approximately 3 limes"
-        },
-        {
-            "item": "Kiwi",
-            "quantity": "Approximately 2 kiwis"
-        },
-        {
-            "item": "Grapes",
-            "quantity": "Approximately 1 container of grapes"
-        },
-        {
-            "item": "Apples",
-            "quantity": "Approximately 2 apples"
-        },
-        {
-            "item": "Strawberries",
-            "quantity": "Approximately 1 container of strawberries"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "Approximately 2 dozen eggs"
-        },
-        {
-            "item": "Milk",
-            "quantity": "Approximately half-full bottle"
-        },
-        {
-            "item": "Yogurt",
-            "quantity": "Approximately half-full container"
+            "item": "Cucumber",
+            "quantity": "1 cucumber"
         },
         {
             "item": "Cheese",
-            "quantity": "Approximately 1 block of cheese"
+            "quantity": "Block of cheese, approximately 1/4 left"
         },
         {
-            "item": "Salad Dressing",
-            "quantity": "Approximately 1 full bottle"
+            "item": "Milk",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "Carton of eggs, approximately 1 dozen"
         },
         {
             "item": "Bread",
-            "quantity": "Approximately 1 loaf"
-        },
-        {
-            "item": "Butter",
-            "quantity": "Approximately 1 half-full stick"
-        },
-        {
-            "item": "Orange Juice",
-            "quantity": "Approximately 1 full bottle"
+            "quantity": "Loaf of bread, half-used"
         }
     ]
 }
