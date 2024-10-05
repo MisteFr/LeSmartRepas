@@ -121,8 +121,8 @@ function App() {
   // Handle response from backend, append new ingredients to the list
   socketRef.current.on('response', (data) => {
     if (data.ingredients) {
-      console.log(data.ingredients.length)
-      setIngredients((prevIngredients) => [...prevIngredients, ...data.ingredients.ingredients]);
+      console.log(data.ingredients)
+      setIngredients(data.ingredients.ingredients);
       localStorage.setItem('ingredientsList', JSON.stringify(data.ingredients.ingredients));
       setLoading(false);
     }
