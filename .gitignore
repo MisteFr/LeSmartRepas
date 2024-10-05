@@ -5,3 +5,15 @@ plucky-environs-437715-i8-65543558c67b.json
 HackUKFrontEnd/my-app/node_modules/
 HackUKFrontEnd/my-app/node_modules
 HackUKFrontEnd/my-app/node_modules/.bin/browserslist
+# Ignore the entire node_modules directory
+# Ignore node_modules directory
+node_modules/
+
+# Ignore the specific path you mentioned
+HackUKFrontEnd/my-app/node_modules/.bin/acorn
+
+# Ignore all files in .bin directories within node_modules
+**/node_modules/.bin/*
+
+# Ignore node_modules in any subdirectory
+**/node_modules/**

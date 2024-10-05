@@ -1,6 +1,18 @@
-import React, { useState, useRef } from 'react';
-import { CssVarsProvider, Container, Box, Typography, Select, Option, Button, Input, Checkbox, Textarea, CircularProgress } from '@mui/joy';
-import io from 'socket.io-client';
+import React, { useState, useRef } from "react";
+import {
+  CssVarsProvider,
+  Container,
+  Box,
+  Typography,
+  Select,
+  Option,
+  Button,
+  Input,
+  Checkbox,
+  Textarea,
+  CircularProgress,
+} from "@mui/joy";
+import io from "socket.io-client";
 
 function App() {
   // State for user preferences
@@ -10,17 +22,18 @@ function App() {
     lowCarb: false,
     vegan: false,
   });
-  const [restrictions, setRestrictions] = useState('');
-  const [goalType, setGoalType] = useState('');
-  const [goalDetails, setGoalDetails] = useState('');
-  const [image, setImage] = useState(null);  // State to store uploaded image
+  const [restrictions, setRestrictions] = useState("");
+  const [goalType, setGoalType] = useState("");
+  const [goalDetails, setGoalDetails] = useState("");
+  const [image, setImage] = useState(null); // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
-  const [ingredients, setIngredients] = useState([]);  // State to store ingredients list from backend
+  const [ingredients, setIngredients] = useState([]); // State to store ingredients list from backend
+  const [calories, setCalories] = useState(null); // New state for calories
   const socketRef = useRef();
 
   // Initialize WebSocket connection to the backend
   if (!socketRef.current) {
-    socketRef.current = io('http://localhost:5001', {
+    socketRef.current = io("http://localhost:5001", {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
@@ -30,7 +43,9 @@ function App() {
   const handleSettingsSubmit = async (event) => {
     event.preventDefault();
 
-    const selectedPreferences = Object.keys(preferences).filter((key) => preferences[key]);
+    const selectedPreferences = Object.keys(preferences).filter(
+      (key) => preferences[key]
+    );
 
     const userData = {
       preferences: selectedPreferences,
@@ -40,12 +55,12 @@ function App() {
     };
 
     // Send data to the backend
-    socketRef.current.emit('submit_user_data', userData);
+    socketRef.current.emit("submit_user_data", userData);
 
     // Reset form after submission
-    setRestrictions('');
-    setGoalType('');
-    setGoalDetails('');
+    setRestrictions("");
+    setGoalType("");
+    setGoalDetails("");
   };
 
   // Handle checkbox changes for preferences
@@ -63,8 +78,8 @@ function App() {
       // Convert the image to base64
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64Image = reader.result.split(',')[1];  // Only send the base64 part
-        socketRef.current.emit('submit_image', { image: base64Image });
+        const base64Image = reader.result.split(",")[1]; // Only send the base64 part
+        socketRef.current.emit("submit_image", { image: base64Image });
       };
       reader.readAsDataURL(image);
     }
@@ -79,30 +94,67 @@ function App() {
   };
 
   // Handle response from backend
-  socketRef.current.on('response', (data) => {
+  socketRef.current.on("response", (data) => {
     if (data.ingredients) {
-      console.log('Received Ingredients:', data.ingredients);  // Debugging: Check if ingredients are received
+      console.log("Received Ingredients:", data.ingredients); // Debugging: Check if ingredients are received
       setIngredients(data.ingredients.ingredients);
       setLoading(false);
 
-      console.log(ingredients)
+      console.log(ingredients);
+    }
+    if (data.calories) {
+      setCalories(data.calories);
     }
   });
 
   return (
     <CssVarsProvider>
-      <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <Container
+        maxWidth={false}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         {/* Centered Title with Fridge Emoji */}
-        <Box sx={{ width: '100%', backgroundColor: '#f0f0f0', padding: '20px', textAlign: 'center', marginBottom: '20px'}}>
+        <Box
+          sx={{
+            width: "100%",
+            backgroundColor: "#f0f0f0",
+            padding: "20px",
+            textAlign: "center",
+            marginBottom: "20px",
+          }}
+        >
           {/* Centered Title with Fridge Emoji */}
-          <Typography level="h1" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Typography
+            level="h1"
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             LeSmartRepas 🧊
           </Typography>
         </Box>
-        
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '90%' }}>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            width: "90%",
+          }}
+        >
           {/* Left Side: Settings Form */}
-          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px' }}>
+          <Box
+            sx={{
+              flex: 1,
+              maxWidth: "58%",
+              textAlign: "center",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              padding: "20px",
+            }}
+          >
             <Typography level="h2" mb={5}>
               Nutritional Setup
             </Typography>
@@ -110,11 +162,26 @@ function App() {
             <Box
               component="form"
               onSubmit={handleSettingsSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, width: '100%' }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 2,
+                width: "100%",
+              }}
             >
               {/* User Inputs: Nutritional Preferences (with Checkboxes) */}
               <Typography level="h3">Nutritional Preferences</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, width: '100%', marginBottom: '20px'}}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 2,
+                  width: "100%",
+                  marginBottom: "20px",
+                }}
+              >
                 <Checkbox
                   label="Vegetarian"
                   checked={preferences.vegetarian}
@@ -150,7 +217,7 @@ function App() {
                 required
                 minRows={3}
                 maxRows={5}
-                sx={{ width: '100%', marginBottom: '20px' }}
+                sx={{ width: "100%", marginBottom: "20px" }}
               />
 
               {/* Nutritional Goals */}
@@ -160,11 +227,15 @@ function App() {
                 onChange={(e, newValue) => setGoalType(newValue)}
                 placeholder="Select your goal"
                 required
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
               >
                 <Option value="calorie-limit">Calorie Limit</Option>
-                <Option value="macro-balance">Macro Balance (Protein, Fat, Carbs)</Option>
-                <Option value="nutrient-focus">Nutrient Focus (Iron, Vitamin C, etc.)</Option>
+                <Option value="macro-balance">
+                  Macro Balance (Protein, Fat, Carbs)
+                </Option>
+                <Option value="nutrient-focus">
+                  Nutrient Focus (Iron, Vitamin C, etc.)
+                </Option>
               </Select>
 
               {/* Nutritional Goal Details */}
@@ -175,7 +246,7 @@ function App() {
                 required
                 minRows={3}
                 maxRows={5}
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
               />
 
               <Button
@@ -190,7 +261,17 @@ function App() {
           </Box>
 
           {/* Right Side: Image Upload and Ingredients Table */}
-          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px', marginLeft: '20px' }}>
+          <Box
+            sx={{
+              flex: 1,
+              maxWidth: "58%",
+              textAlign: "center",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              padding: "20px",
+              marginLeft: "20px",
+            }}
+          >
             <Typography level="h2" mb={5}>
               Upload Image & Ingredients
             </Typography>
@@ -198,7 +279,12 @@ function App() {
             <Box
               component="form"
               onSubmit={handleImageSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 2,
+              }}
             >
               <Input
                 type="file"
@@ -206,17 +292,17 @@ function App() {
                 onChange={handleImageChange}
                 sx={{
                   mb: 2,
-                  padding: '10px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  width: '100%',
-                  '&:hover': {
-                    borderColor: '#007bff',
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  width: "100%",
+                  "&:hover": {
+                    borderColor: "#007bff",
                   },
-                  '&:focus': {
-                    outline: 'none',
-                    borderColor: '#007bff',
-                    boxShadow: '0 0 0 2px rgba(0, 123, 255, 0.25)',
+                  "&:focus": {
+                    outline: "none",
+                    borderColor: "#007bff",
+                    boxShadow: "0 0 0 2px rgba(0, 123, 255, 0.25)",
                   },
                 }}
               />
@@ -226,28 +312,47 @@ function App() {
                 color="primary"
                 disabled={!image || loading}
               >
-                {loading ? <CircularProgress size="sm" /> : 'Submit Image'}
+                {loading ? <CircularProgress size="sm" /> : "Submit Image"}
               </Button>
             </Box>
-
+            {/* Calories */}
+            {calories !== null && (
+              <Box sx={{ mt: 4 }}>
+                <Typography level="h3" mb={2}>
+                  Estimated Calories: {calories}
+                </Typography>
+              </Box>
+            )}
             {/* Ingredients Table */}
             {ingredients.length > 0 && (
               <Box sx={{ mt: 4 }}>
                 <Typography level="h3" mb={2}>
                   Detected Ingredients
                 </Typography>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Item</th>
-                      <th style={{ border: '1px solid #ccc', padding: '8px' }}>Quantity</th>
+                      <th style={{ border: "1px solid #ccc", padding: "8px" }}>
+                        Item
+                      </th>
+                      <th style={{ border: "1px solid #ccc", padding: "8px" }}>
+                        Quantity
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {ingredients.map((ingredient, index) => (
                       <tr key={index}>
-                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{ingredient.item}</td>
-                        <td style={{ border: '1px solid #ccc', padding: '8px' }}>{ingredient.quantity}</td>
+                        <td
+                          style={{ border: "1px solid #ccc", padding: "8px" }}
+                        >
+                          {ingredient.item}
+                        </td>
+                        <td
+                          style={{ border: "1px solid #ccc", padding: "8px" }}
+                        >
+                          {ingredient.quantity}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
