@@ -1,0 +1,100 @@
+{
+    "ingredients": [
+        {
+            "item": "Tomatoes",
+            "quantity": "Approximately 6 tomatoes"
+        },
+        {
+            "item": "Green Peppers",
+            "quantity": "Approximately 2 green peppers"
+        },
+        {
+            "item": "Red Bell Peppers",
+            "quantity": "Approximately 2 red bell peppers"
+        },
+        {
+            "item": "Yellow Bell Peppers",
+            "quantity": "Approximately 1 yellow bell pepper"
+        },
+        {
+            "item": "Cucumbers",
+            "quantity": "Approximately 2 cucumbers"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "Approximately 4 carrots"
+        },
+        {
+            "item": "Green Beans",
+            "quantity": "Approximately 1 bunch of green beans"
+        },
+        {
+            "item": "Lemons",
+            "quantity": "Approximately 2 lemons"
+        },
+        {
+            "item": "Oranges",
+            "quantity": "Approximately 2 oranges"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "3 egg cartons, each containing 12 eggs, total approximately 36 eggs"
+        },
+        {
+            "item": "Milk",
+            "quantity": "1 nearly full bottle of milk"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "1 half-full bottle of orange juice"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "1 container of yogurt"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "Approximately 1 block of cheese"
+        },
+        {
+            "item": "Sour Cream",
+            "quantity": "1 container of sour cream"
+        },
+        {
+            "item": "Butter",
+            "quantity": "1 small container of butter"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "1 bottle of ketchup"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "1 bottle of mustard"
+        },
+        {
+            "item": "Jams/Jellies",
+            "quantity": "2 jars of jam or jelly"
+        },
+        {
+            "item": "Fruit Salad",
+            "quantity": "1 container of mixed fruit salad"
+        },
+        {
+            "item": "Mixed Berries",
+            "quantity": "1 container of mixed berries (strawberries, blueberries, raspberries)"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch of grapes"
+        },
+        {
+            "item": "Apples",
+            "quantity": "Approximately 2 apples"
+        },
+        {
+            "item": "Sandwiches",
+            "quantity": "Approximately 4 sandwiches wrapped in plastic"
+        }
+    ]
+}
