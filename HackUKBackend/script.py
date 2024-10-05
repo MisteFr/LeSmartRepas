@@ -8,6 +8,7 @@ from flask_socketio import SocketIO, emit
 import json
 from utils import decode_image_base64, encode_image_base64
 from inventory import get_ingredients, update_ingredients
+import json
 from recipes import get_possible_recipes
 
 app = Flask(__name__)
@@ -38,8 +39,6 @@ def handle_image_submission(data):
     
     # Save the ingredients as JSON locally
     ingredientsJson = get_ingredients()
-
-    print(get_possible_recipes(ingredientsJson, client, model))
     
     # Emit the ingredients list back to the client
     emit('response', {'ingredients': ingredientsJson})
@@ -47,3 +46,4 @@ def handle_image_submission(data):
 # Example usage to run the Flask app
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=5001)
+

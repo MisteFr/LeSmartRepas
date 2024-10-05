@@ -1,72 +1,94 @@
 {
     "ingredients": [
         {
-            "item": "Tomatoes",
-            "quantity": "Approximately 6 tomatoes"
-        },
-        {
-            "item": "Bell Peppers",
-            "quantity": "Includes at least 1 red bell pepper and 1 yellow bell pepper"
-        },
-        {
-            "item": "Cucumbers",
-            "quantity": "Approximately 3 cucumbers"
-        },
-        {
-            "item": "Carrots",
-            "quantity": "Approximately 6 carrots"
-        },
-        {
-            "item": "Limes",
-            "quantity": "Approximately 3 limes"
-        },
-        {
-            "item": "Kiwi",
-            "quantity": "Approximately 2 kiwis"
-        },
-        {
-            "item": "Grapes",
-            "quantity": "Approximately 1 container of grapes"
-        },
-        {
-            "item": "Apples",
-            "quantity": "Approximately 2 apples"
-        },
-        {
-            "item": "Strawberries",
-            "quantity": "Approximately 1 container of strawberries"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "Approximately 2 dozen eggs"
-        },
-        {
             "item": "Milk",
-            "quantity": "Approximately half-full bottle"
-        },
-        {
-            "item": "Yogurt",
-            "quantity": "Approximately half-full container"
-        },
-        {
-            "item": "Cheese",
-            "quantity": "Approximately 1 block of cheese"
-        },
-        {
-            "item": "Salad Dressing",
-            "quantity": "Approximately 1 full bottle"
-        },
-        {
-            "item": "Bread",
-            "quantity": "Approximately 1 loaf"
-        },
-        {
-            "item": "Butter",
-            "quantity": "Approximately 1 half-full stick"
+            "quantity": "Half-full",
+            "location": "Top shelf, left side"
         },
         {
             "item": "Orange Juice",
-            "quantity": "Approximately 1 full bottle"
+            "quantity": "Nearly full",
+            "location": "Top shelf, center"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "Full",
+            "location": "Top shelf, left side below milk"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Half-full",
+            "location": "Top shelf, center"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "Full",
+            "location": "Top shelf, center"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "Half-full",
+            "location": "Top shelf, right side"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "1 dozen",
+            "location": "Middle shelf, left side"
+        },
+        {
+            "item": "Hot Sauce",
+            "quantity": "Full",
+            "location": "Middle shelf, center"
+        },
+        {
+            "item": "Sour Cream",
+            "quantity": "Half-full",
+            "location": "Middle shelf, right side"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6",
+            "location": "Middle shelf, right side below sour cream"
+        },
+        {
+            "item": "Apples",
+            "quantity": "4",
+            "location": "Middle shelf, right side below tomatoes"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "1 bunch",
+            "location": "Middle shelf, right side below apples"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "1 head",
+            "location": "Middle shelf, right side below carrots"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "1 block",
+            "location": "Middle shelf, right side below lettuce"
+        },
+        {
+            "item": "Onions",
+            "quantity": "3",
+            "location": "Middle shelf, right side below cheese"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch",
+            "location": "Bottom shelf, center"
+        },
+        {
+            "item": "Avocados",
+            "quantity": "2",
+            "location": "Bottom shelf, center"
+        },
+        {
+            "item": "Celery",
+            "quantity": "1 stalk",
+            "location": "Bottom shelf, right side"
         }
     ]
 }
