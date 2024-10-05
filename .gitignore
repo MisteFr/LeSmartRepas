@@ -17,3 +17,9 @@ HackUKFrontEnd/my-app/node_modules/.bin/acorn
 
 # Ignore node_modules in any subdirectory
 **/node_modules/**
+HackUKBackend/__pycache__/inventory.cpython-312.pyc
+HackUKBackend/__pycache__/inventory.cpython-312.pyc
+HackUKBackend/__pycache__/inventory.cpython-312.pyc
+HackUKBackend/__pycache__/prompts.cpython-312.pyc
+HackUKBackend/__pycache__/utils.cpython-312.pyc
+HackUKBackend/__pycache__/llms.cpython-312.pyc
