@@ -2,113 +2,78 @@
     "ingredients": [
         {
             "item": "Milk",
-            "quantity": "Half-full",
-            "location": "Top shelf, left side"
+            "quantity": "Full",
+            "location": "Top left"
         },
         {
-            "item": "Yogurt",
-            "quantity": "Full tub",
-            "location": "Top shelf, left side"
+            "item": "Orange Juice",
+            "quantity": "Half-full",
+            "location": "Middle left"
         },
         {
             "item": "Ketchup",
-            "quantity": "Half-full bottle",
-            "location": "Top shelf, right side"
-        },
-        {
-            "item": "Mustard",
-            "quantity": "Nearly full bottle",
-            "location": "Top shelf, right side"
+            "quantity": "Nearly full",
+            "location": "Middle left"
         },
         {
             "item": "Mayonnaise",
-            "quantity": "Nearly full jar",
-            "location": "Top shelf, right side"
+            "quantity": "Half-full",
+            "location": "Top left"
         },
         {
-            "item": "Relish",
-            "quantity": "Nearly full jar",
-            "location": "Top shelf, right side"
+            "item": "Yogurt",
+            "quantity": "Full",
+            "location": "Top left"
         },
         {
-            "item": "Olive oil",
-            "quantity": "Full bottle",
-            "location": "Second shelf, left side"
+            "item": "Jars (various)",
+            "quantity": "5",
+            "location": "Middle right"
         },
         {
-            "item": "Soy sauce",
-            "quantity": "Full bottle",
-            "location": "Second shelf, left side"
-        },
-        {
-            "item": "Wine",
-            "quantity": "Full bottle",
-            "location": "Second shelf, left side"
-        },
-        {
-            "item": "Orange juice",
-            "quantity": "Half-full bottle",
-            "location": "Second shelf, left side"
-        },
-        {
-            "item": "Plastic container with dressing",
-            "quantity": "Nearly full",
-            "location": "Second shelf, left side"
-        },
-        {
-            "item": "Tomatoes",
-            "quantity": "6",
-            "location": "Second shelf, right side"
-        },
-        {
-            "item": "Lettuce",
-            "quantity": "Head of lettuce",
-            "location": "Second shelf, right side"
-        },
-        {
-            "item": "Cabbage",
-            "quantity": "Half",
-            "location": "Second shelf, right side"
+            "item": "Bottles (various)",
+            "quantity": "4",
+            "location": "Middle right"
         },
         {
             "item": "Apples",
-            "quantity": "3",
-            "location": "Second shelf, right side"
+            "quantity": "2",
+            "location": "Middle right"
         },
         {
             "item": "Carrots",
-            "quantity": "Bunch",
-            "location": "Second shelf, right side"
+            "quantity": "Approx 10",
+            "location": "Middle right"
         },
         {
-            "item": "Eggs",
-            "quantity": "Dozen",
-            "location": "Second shelf, right side"
+            "item": "Salad",
+            "quantity": "Large bowl",
+            "location": "Middle right"
         },
         {
             "item": "Cheese",
-            "quantity": "Block",
-            "location": "Second shelf, right side"
+            "quantity": "Full package",
+            "location": "Middle right"
         },
         {
-            "item": "Ham",
-            "quantity": "Pack",
-            "location": "Second shelf, right side"
+            "item": "Eggs",
+            "quantity": "6",
+            "location": "Middle right"
         },
         {
-            "item": "Bread",
-            "quantity": "Loaf",
-            "location": "Top shelf, center"
+            "item": "Onions",
+            "quantity": "2",
+            "location": "Middle right"
         },
         {
-            "item": "Bananas",
-            "quantity": "3",
-            "location": "Top shelf, center"
+            "item": "Cucumbers",
+            "quantity": "2",
+            "location": "Middle right"
         },
         {
-            "item": "Milk carton",
-            "quantity": "Full",
-            "location": "Top shelf, center"
+            "item": "Grapes",
+            "quantity": "Small bowl",
+            "location": "Middle right"
         }
     ]
 }

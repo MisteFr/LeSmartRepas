@@ -30,7 +30,10 @@ function App() {
   const [ingredients, setIngredients] = useState([]); // State to store ingredients list
   const [calories, setCalories] = useState(null); // New state for calories
   const [isNutritionalSetupOpen, setIsNutritionalSetupOpen] = useState(true); // Toggle for collapsible form
+  const [isIngredientsListOpen, setIsIngredientsListOpen] = useState(true); // Toggle for collapsible form
   const [isUploadFileSetupOpen, setIsUploadFileSetupOpen] = useState(true); // Toggle for collapsible form
+  const [isMealPreparationOpen, setIsMealPreparationOpen] = useState(true); // Toggle for collapsible form
+  const [isShoppingListOpen, setIsShoppingListOpen] = useState(true); // Toggle for collapsible form
   const [isFilledFromStorage, setIsFilledFromStorage] = useState(false); // Track if data loaded from storage
   const socketRef = useRef();
 
@@ -337,7 +340,7 @@ function App() {
           </Box>
         </Box>
 
-        {/* Upload Image & Ingredients Section */}
+        {/* Upload Image */}
         <Box
           sx={{
             width: "100%",
@@ -345,10 +348,11 @@ function App() {
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
+            marginBottom: "20px"
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <Typography level="h2">Upload Image & Ingredients</Typography>
+            <Typography level="h2">Upload Image</Typography>
             {ingredients.length > 0 && (
               <CheckCircleIcon
                 sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
@@ -405,18 +409,51 @@ function App() {
             </Box>
           )}
         </Box>
-        <Box>
-          {/* Calories */}
+        
+          {/* Calories
           {calories !== null && (
             <Box sx={{ mt: 4 }}>
               <Typography level="h3" mb={2}>
                 Estimated Calories: {calories}
               </Typography>
             </Box>
-          )}
+          )} */}
+
+          
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "900px",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            padding: "20px",
+            marginBottom: "20px"
+          }}
+        >
+
+        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <Typography level="h2" sx={{ display: "inline-block" }}>
+                Ingredients List
+              </Typography>
+              {isFilledFromStorage && (
+                <CheckCircleIcon
+                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+                />
+              )}
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  setIsIngredientsListOpen(!isIngredientsListOpen)
+                }
+                sx={{ textTransform: "none", marginLeft: "auto" }}
+              >
+                {isIngredientsListOpen ? "Collapse" : "Edit"}
+              </Button>
+            </Box>
 
           {/* Ingredients Table */}
-          {ingredients.length > 0 && (
+          {ingredients.length > 0 && isIngredientsListOpen && (
             <Box sx={{ mt: 4 }}>
               <Typography level="h3" mb={2}>
                 Detected Ingredients
@@ -429,6 +466,9 @@ function App() {
                     </th>
                     <th style={{ border: "1px solid #ccc", padding: "8px" }}>
                       Quantity
+                    </th>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>
+                      Location
                     </th>
                     <th style={{ border: "1px solid #ccc", padding: "8px" }}>
                       Actions
@@ -452,6 +492,15 @@ function App() {
                           value={ingredient.quantity}
                           onChange={(e) =>
                             handleItemChange(index, "quantity", e.target.value)
+                          }
+                          sx={{ width: "100%" }}
+                        />
+                      </td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>
+                        <Input
+                          value={ingredient.location}
+                          onChange={(e) =>
+                            handleItemChange(index, "location", e.target.value)
                           }
                           sx={{ width: "100%" }}
                         />
@@ -497,7 +546,82 @@ function App() {
               </Box>
             </Box>
           )}
-        </Box>
+          </Box>
+          </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "900px",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            padding: "20px",
+            marginBottom: "20px"
+          }}
+        >
+
+
+        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <Typography level="h2" sx={{ display: "inline-block" }}>
+                Meal Preparation
+              </Typography>
+              {/* {isFilledFromStorage && (
+                <CheckCircleIcon
+                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+                />
+              )} */}
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  setIsMealPreparationOpen(!isMealPreparationOpen)
+                }
+                sx={{ textTransform: "none", marginLeft: "auto" }}
+              >
+                {isMealPreparationOpen ? "Collapse" : "Open"}
+              </Button>
+            </Box>
+
+            </Box>
+          </Box>
+
+
+          <Box
+          sx={{
+            width: "100%",
+            maxWidth: "900px",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            padding: "20px",
+            marginBottom: "20px"
+          }}
+        >
+
+
+        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <Typography level="h2" sx={{ display: "inline-block" }}>
+                Shopping List
+              </Typography>
+              {/* {isFilledFromStorage && (
+                <CheckCircleIcon
+                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+                />
+              )} */}
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  setIsShoppingListOpen(!isShoppingListOpen)
+                }
+                sx={{ textTransform: "none", marginLeft: "auto" }}
+              >
+                {isShoppingListOpen ? "Collapse" : "Open"}
+              </Button>
+            </Box>
+
+            </Box>
+          </Box>
+        
       </Container>
     </CssVarsProvider>
   );
