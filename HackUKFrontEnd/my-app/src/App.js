@@ -82,8 +82,10 @@ function App() {
   socketRef.current.on('response', (data) => {
     if (data.ingredients) {
       console.log('Received Ingredients:', data.ingredients);  // Debugging: Check if ingredients are received
-      setIngredients(data.ingredients);
+      setIngredients(data.ingredients.ingredients);
       setLoading(false);
+
+      console.log(ingredients)
     }
   });
 
@@ -91,28 +93,28 @@ function App() {
     <CssVarsProvider>
       <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         {/* Centered Title with Fridge Emoji */}
-        <Box sx={{ width: '100%', backgroundColor: '#f0f0f0', padding: '20px', textAlign: 'center' }}>
+        <Box sx={{ width: '100%', backgroundColor: '#f0f0f0', padding: '20px', textAlign: 'center', marginBottom: '20px'}}>
           {/* Centered Title with Fridge Emoji */}
           <Typography level="h1" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
             LeSmartRepas 🧊
           </Typography>
         </Box>
         
-        <Box sx={{ display: 'flex', width: '100%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '90%' }}>
           {/* Left Side: Settings Form */}
-          <Box sx={{ width: '50%', paddingRight: '20px', textAlign: 'center' }}>
-            <Typography level="h2" mb={3}>
+          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px' }}>
+            <Typography level="h2" mb={5}>
               Nutritional Setup
             </Typography>
-            
+
             <Box
               component="form"
               onSubmit={handleSettingsSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, width: '100%' }}
             >
               {/* User Inputs: Nutritional Preferences (with Checkboxes) */}
               <Typography level="h3">Nutritional Preferences</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, width: '100%' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, width: '100%', marginBottom: '20px'}}>
                 <Checkbox
                   label="Vegetarian"
                   checked={preferences.vegetarian}
@@ -148,7 +150,7 @@ function App() {
                 required
                 minRows={3}
                 maxRows={5}
-                sx={{ width: '100%' }}
+                sx={{ width: '100%', marginBottom: '20px' }}
               />
 
               {/* Nutritional Goals */}
@@ -158,6 +160,7 @@ function App() {
                 onChange={(e, newValue) => setGoalType(newValue)}
                 placeholder="Select your goal"
                 required
+                sx={{ width: '100%' }}
               >
                 <Option value="calorie-limit">Calorie Limit</Option>
                 <Option value="macro-balance">Macro Balance (Protein, Fat, Carbs)</Option>
@@ -187,8 +190,8 @@ function App() {
           </Box>
 
           {/* Right Side: Image Upload and Ingredients Table */}
-          <Box sx={{ width: '50%', paddingLeft: '20px', textAlign: 'center' }}>
-            <Typography level="h2" mb={3}>
+          <Box sx={{ flex: 1, maxWidth: '58%', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px', marginLeft: '20px' }}>
+            <Typography level="h2" mb={5}>
               Upload Image & Ingredients
             </Typography>
 
@@ -201,7 +204,21 @@ function App() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                sx={{ mb: 2 }}
+                sx={{
+                  mb: 2,
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  width: '100%',
+                  '&:hover': {
+                    borderColor: '#007bff',
+                  },
+                  '&:focus': {
+                    outline: 'none',
+                    borderColor: '#007bff',
+                    boxShadow: '0 0 0 2px rgba(0, 123, 255, 0.25)',
+                  },
+                }}
               />
               <Button
                 type="submit"
