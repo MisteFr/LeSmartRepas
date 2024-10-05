@@ -2,75 +2,93 @@
     "ingredients": [
         {
             "item": "Milk",
-            "quantity": "Half-full bottle"
+            "quantity": "Half-full",
+            "location": "Top shelf, left side"
         },
         {
             "item": "Orange Juice",
-            "quantity": "Nearly empty bottle"
+            "quantity": "Nearly full",
+            "location": "Top shelf, center"
         },
         {
             "item": "Yogurt",
-            "quantity": "Full container"
-        },
-        {
-            "item": "Pasta Sauce",
-            "quantity": "Full jar"
-        },
-        {
-            "item": "Hummus",
-            "quantity": "Half-full container"
-        },
-        {
-            "item": "Mayonnaise",
-            "quantity": "Full bottle"
+            "quantity": "Full",
+            "location": "Top shelf, left side below milk"
         },
         {
             "item": "Ketchup",
-            "quantity": "Full bottle"
+            "quantity": "Half-full",
+            "location": "Top shelf, center"
         },
         {
             "item": "Mustard",
-            "quantity": "Full bottle"
+            "quantity": "Full",
+            "location": "Top shelf, center"
         },
         {
-            "item": "Lettuce",
-            "quantity": "Head of lettuce, approximately 1"
-        },
-        {
-            "item": "Tomatoes",
-            "quantity": "Approximately 6 tomatoes"
-        },
-        {
-            "item": "Apples",
-            "quantity": "Approximately 6 apples"
-        },
-        {
-            "item": "Bananas",
-            "quantity": "Bunch of 4 bananas"
-        },
-        {
-            "item": "Carrots",
-            "quantity": "Approximately 10 carrots"
-        },
-        {
-            "item": "Cucumber",
-            "quantity": "1 cucumber"
-        },
-        {
-            "item": "Cheese",
-            "quantity": "Block of cheese, approximately 1/4 left"
-        },
-        {
-            "item": "Milk",
-            "quantity": "Full bottle"
+            "item": "Mayonnaise",
+            "quantity": "Half-full",
+            "location": "Top shelf, right side"
         },
         {
             "item": "Eggs",
-            "quantity": "Carton of eggs, approximately 1 dozen"
+            "quantity": "1 dozen",
+            "location": "Middle shelf, left side"
         },
         {
-            "item": "Bread",
-            "quantity": "Loaf of bread, half-used"
+            "item": "Hot Sauce",
+            "quantity": "Full",
+            "location": "Middle shelf, center"
+        },
+        {
+            "item": "Sour Cream",
+            "quantity": "Half-full",
+            "location": "Middle shelf, right side"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6",
+            "location": "Middle shelf, right side below sour cream"
+        },
+        {
+            "item": "Apples",
+            "quantity": "4",
+            "location": "Middle shelf, right side below tomatoes"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "1 bunch",
+            "location": "Middle shelf, right side below apples"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "1 head",
+            "location": "Middle shelf, right side below carrots"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "1 block",
+            "location": "Middle shelf, right side below lettuce"
+        },
+        {
+            "item": "Onions",
+            "quantity": "3",
+            "location": "Middle shelf, right side below cheese"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch",
+            "location": "Bottom shelf, center"
+        },
+        {
+            "item": "Avocados",
+            "quantity": "2",
+            "location": "Bottom shelf, center"
+        },
+        {
+            "item": "Celery",
+            "quantity": "1 stalk",
+            "location": "Bottom shelf, right side"
         }
     ]
 }

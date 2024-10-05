@@ -45,8 +45,6 @@ def save_ingredients_as_json(ingredients_list, file_name="ingredients.json"):
         print(f"Error parsing JSON: {e}")
         return None
 
-    import json
-
 
 # Function to call Mistral API for image analysis
 def count_calories(client, model, ingredients_file_path: str):

@@ -8,6 +8,7 @@ from flask_socketio import SocketIO, emit
 import json
 from utils import decode_image_base64, encode_image_base64
 from inventory import get_ingredients, update_ingredients
+import json
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -44,3 +45,4 @@ def handle_image_submission(data):
 # Example usage to run the Flask app
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=5001)
+
