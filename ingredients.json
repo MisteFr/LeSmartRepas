@@ -2,95 +2,123 @@
     "ingredients": [
         {
             "item": "Tomatoes",
-            "quantity": "Approximately 6 tomatoes"
-        },
-        {
-            "item": "Bell Peppers",
-            "quantity": "Includes at least 1 red bell pepper and 1 yellow bell pepper"
-        },
-        {
-            "item": "Cucumber",
-            "quantity": "1 cucumber"
-        },
-        {
-            "item": "Carrots",
-            "quantity": "Approximately 4 carrots"
-        },
-        {
-            "item": "Lettuce",
-            "quantity": "1 head of lettuce"
-        },
-        {
-            "item": "Onions",
-            "quantity": "2 onions"
-        },
-        {
-            "item": "Apples",
-            "quantity": "Approximately 3 apples"
-        },
-        {
-            "item": "Oranges",
-            "quantity": "2 oranges"
-        },
-        {
-            "item": "Grapes",
-            "quantity": "1 bunch of grapes"
-        },
-        {
-            "item": "Strawberries",
-            "quantity": "1 container of strawberries"
-        },
-        {
-            "item": "Cherry Tomatoes",
-            "quantity": "1 container of cherry tomatoes"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "2 dozen eggs"
-        },
-        {
-            "item": "Milk",
-            "quantity": "Half-full bottle"
-        },
-        {
-            "item": "Orange Juice",
-            "quantity": "Full bottle"
+            "quantity": "6",
+            "location": "Top shelf, left"
         },
         {
             "item": "Ketchup",
-            "quantity": "Full bottle"
+            "quantity": "Full bottle",
+            "location": "Top shelf, middle"
         },
         {
-            "item": "Mustard",
-            "quantity": "Half-full bottle"
+            "item": "Salad dressing",
+            "quantity": "Half-full bottle",
+            "location": "Top shelf, middle"
         },
         {
-            "item": "Mayonnaise",
-            "quantity": "Full bottle"
+            "item": "Carrots",
+            "quantity": "4",
+            "location": "Top shelf, middle"
         },
         {
-            "item": "Yogurt",
-            "quantity": "1 container"
+            "item": "Peppers",
+            "quantity": "3",
+            "location": "Top shelf, middle"
+        },
+        {
+            "item": "Oranges",
+            "quantity": "2",
+            "location": "Top shelf, middle"
+        },
+        {
+            "item": "Green onions",
+            "quantity": "Bunch",
+            "location": "Top shelf, middle"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "1 dozen",
+            "location": "Top shelf, right"
+        },
+        {
+            "item": "Cabbage",
+            "quantity": "Half head",
+            "location": "Second shelf, left"
+        },
+        {
+            "item": "Red bell peppers",
+            "quantity": "4",
+            "location": "Second shelf, middle"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6",
+            "location": "Second shelf, middle"
+        },
+        {
+            "item": "Broccoli",
+            "quantity": "2 heads",
+            "location": "Second shelf, middle"
+        },
+        {
+            "item": "Green onions",
+            "quantity": "Bunch",
+            "location": "Second shelf, middle"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch",
+            "location": "Middle drawer"
+        },
+        {
+            "item": "Strawberries",
+            "quantity": "1 container",
+            "location": "Middle drawer"
+        },
+        {
+            "item": "Blueberries",
+            "quantity": "1 container",
+            "location": "Middle drawer"
+        },
+        {
+            "item": "Apples",
+            "quantity": "3",
+            "location": "Middle drawer"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "3",
+            "location": "Middle drawer"
         },
         {
             "item": "Cheese",
-            "quantity": "Approximately 100g block of cheese"
+            "quantity": "1 block",
+            "location": "Middle drawer"
         },
         {
-            "item": "Salami",
-            "quantity": "1 package of salami"
+            "item": "Milk",
+            "quantity": "Half-full carton",
+            "location": "Bottom shelf, middle"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "1 tub",
+            "location": "Bottom shelf, middle"
+        },
+        {
+            "item": "Oranges",
+            "quantity": "3",
+            "location": "Bottom shelf, right"
         },
         {
             "item": "Bread",
-            "quantity": "Half a loaf"
+            "quantity": "2 slices",
+            "location": "Bottom shelf, right"
         },
         {
-            "item": "Jam",
-            "quantity": "Full jar"
-        },
-        {
-            "item": "Honey",
-            "quantity": "Half-full bottle"
+            "item": "Eggs",
+            "quantity": "6",
+            "location": "Bottom shelf, right"
         }
     ]
 }
