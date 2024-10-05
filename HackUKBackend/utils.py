@@ -56,26 +56,26 @@ def count_calories(client, model, ingredients_file_path: str):
     ingredients_str = json.dumps(ingredients_data, indent=2)
 
     # Prepare the request payload
-    chat_response = client.chat.complete(
-        model=model,
-        messages=[
-            {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": (
-                            "Please analyze this list of foods below."
-                            "Guess the total number calories in the food. ONLY RESPOND WITH AN INTEGER VALUE. If you aren't sure, respond with 0."
-                            "Example Response: 2000"
-                            f"\n\n{ingredients_str}\n\n"
-                        ),
-                    }
-                ],
-            },
-        ],
-    )
+    # chat_response = client.chat.complete(
+    #     model=model,
+    #     messages=[
+    #         {
+    #             "role": "system",
+    #             "content": [
+    #                 {
+    #                     "type": "text",
+    #                     "text": (
+    #                         "Please analyze this list of foods below."
+    #                         "Guess the total number calories in the food. ONLY RESPOND WITH AN INTEGER VALUE. If you aren't sure, respond with 0."
+    #                         "Example Response: 2000"
+    #                         f"\n\n{ingredients_str}\n\n"
+    #                     ),
+    #                 }
+    #             ],
+    #         },
+    #     ],
+    # )
 
-    calorie_count = chat_response.choices[0].message.content
+    calorie_count = 5 * len(ingredients_str)  # chat_response.choices[0].message.content
 
     return calorie_count

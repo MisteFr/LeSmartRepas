@@ -2,93 +2,78 @@
     "ingredients": [
         {
             "item": "Milk",
-            "quantity": "Half-full",
-            "location": "Top shelf, left side"
+            "quantity": "Full",
+            "location": "Top left"
         },
         {
             "item": "Orange Juice",
-            "quantity": "Nearly full",
-            "location": "Top shelf, center"
-        },
-        {
-            "item": "Yogurt",
-            "quantity": "Full",
-            "location": "Top shelf, left side below milk"
+            "quantity": "Half-full",
+            "location": "Middle left"
         },
         {
             "item": "Ketchup",
-            "quantity": "Half-full",
-            "location": "Top shelf, center"
-        },
-        {
-            "item": "Mustard",
-            "quantity": "Full",
-            "location": "Top shelf, center"
+            "quantity": "Nearly full",
+            "location": "Middle left"
         },
         {
             "item": "Mayonnaise",
             "quantity": "Half-full",
-            "location": "Top shelf, right side"
+            "location": "Top left"
         },
         {
-            "item": "Eggs",
-            "quantity": "1 dozen",
-            "location": "Middle shelf, left side"
-        },
-        {
-            "item": "Hot Sauce",
+            "item": "Yogurt",
             "quantity": "Full",
-            "location": "Middle shelf, center"
+            "location": "Top left"
         },
         {
-            "item": "Sour Cream",
-            "quantity": "Half-full",
-            "location": "Middle shelf, right side"
+            "item": "Jars (various)",
+            "quantity": "5",
+            "location": "Middle right"
         },
         {
-            "item": "Tomatoes",
-            "quantity": "6",
-            "location": "Middle shelf, right side below sour cream"
+            "item": "Bottles (various)",
+            "quantity": "4",
+            "location": "Middle right"
         },
         {
             "item": "Apples",
-            "quantity": "4",
-            "location": "Middle shelf, right side below tomatoes"
+            "quantity": "2",
+            "location": "Middle right"
         },
         {
             "item": "Carrots",
-            "quantity": "1 bunch",
-            "location": "Middle shelf, right side below apples"
+            "quantity": "Approx 10",
+            "location": "Middle right"
         },
         {
-            "item": "Lettuce",
-            "quantity": "1 head",
-            "location": "Middle shelf, right side below carrots"
+            "item": "Salad",
+            "quantity": "Large bowl",
+            "location": "Middle right"
         },
         {
             "item": "Cheese",
-            "quantity": "1 block",
-            "location": "Middle shelf, right side below lettuce"
+            "quantity": "Full package",
+            "location": "Middle right"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "6",
+            "location": "Middle right"
         },
         {
             "item": "Onions",
-            "quantity": "3",
-            "location": "Middle shelf, right side below cheese"
+            "quantity": "2",
+            "location": "Middle right"
+        },
+        {
+            "item": "Cucumbers",
+            "quantity": "2",
+            "location": "Middle right"
         },
         {
             "item": "Grapes",
-            "quantity": "1 bunch",
-            "location": "Bottom shelf, center"
-        },
-        {
-            "item": "Avocados",
-            "quantity": "2",
-            "location": "Bottom shelf, center"
-        },
-        {
-            "item": "Celery",
-            "quantity": "1 stalk",
-            "location": "Bottom shelf, right side"
+            "quantity": "Small bowl",
+            "location": "Middle right"
         }
     ]
 }
