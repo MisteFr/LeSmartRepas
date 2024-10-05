@@ -13,6 +13,7 @@ from utils import encode_image_base64
 def mistral(image, client, model, text):
     # Convert the image to base64 string
     image_base64 = encode_image_base64(image)
+    print("called")
     
     # Prepare the request payload
     chat_response = client.chat.complete(
