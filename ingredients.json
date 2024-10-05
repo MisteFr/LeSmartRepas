@@ -1,0 +1,96 @@
+{
+    "ingredients": [
+        {
+            "item": "Tomatoes",
+            "quantity": "Approximately 6 tomatoes"
+        },
+        {
+            "item": "Bell Peppers",
+            "quantity": "Includes at least 1 red bell pepper and 1 yellow bell pepper"
+        },
+        {
+            "item": "Cucumber",
+            "quantity": "1 cucumber"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "Approximately 4 carrots"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "1 head of lettuce"
+        },
+        {
+            "item": "Onions",
+            "quantity": "2 onions"
+        },
+        {
+            "item": "Apples",
+            "quantity": "Approximately 3 apples"
+        },
+        {
+            "item": "Oranges",
+            "quantity": "2 oranges"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch of grapes"
+        },
+        {
+            "item": "Strawberries",
+            "quantity": "1 container of strawberries"
+        },
+        {
+            "item": "Cherry Tomatoes",
+            "quantity": "1 container of cherry tomatoes"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "2 dozen eggs"
+        },
+        {
+            "item": "Milk",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "1 container"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "Approximately 100g block of cheese"
+        },
+        {
+            "item": "Salami",
+            "quantity": "1 package of salami"
+        },
+        {
+            "item": "Bread",
+            "quantity": "Half a loaf"
+        },
+        {
+            "item": "Jam",
+            "quantity": "Full jar"
+        },
+        {
+            "item": "Honey",
+            "quantity": "Half-full bottle"
+        }
+    ]
+}

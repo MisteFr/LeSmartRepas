@@ -2,3 +2,6 @@
 .venv
 .env
 plucky-environs-437715-i8-65543558c67b.json
+HackUKFrontEnd/my-app/node_modules/
+HackUKFrontEnd/my-app/node_modules
+HackUKFrontEnd/my-app/node_modules/.bin/browserslist
