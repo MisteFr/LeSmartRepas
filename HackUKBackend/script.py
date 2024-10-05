@@ -49,6 +49,13 @@ def handle_image_submission(data):
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
 
+@socketio.on("get_meals")
+def handle_get_meals(data):
+    ingredientsJson = get_ingredients()
+    recipes = get_possible_recipes(ingredientsJson)
+
+    emit("response", {"recipes": recipes})
+
 
 # Example usage to run the Flask app
 if __name__ == "__main__":
