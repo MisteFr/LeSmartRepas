@@ -2,11 +2,15 @@
     "ingredients": [
         {
             "item": "Tomatoes",
-            "quantity": "Approximately 6 tomatoes"
+            "quantity": "Approximately 8 tomatoes"
         },
         {
-            "item": "Green Peppers",
-            "quantity": "Approximately 2 green peppers"
+            "item": "Baby Spinach",
+            "quantity": "Large bag"
+        },
+        {
+            "item": "Green Bell Peppers",
+            "quantity": "Approximately 2 green bell peppers"
         },
         {
             "item": "Red Bell Peppers",
@@ -22,79 +26,71 @@
         },
         {
             "item": "Carrots",
-            "quantity": "Approximately 4 carrots"
-        },
-        {
-            "item": "Green Beans",
-            "quantity": "Approximately 1 bunch of green beans"
-        },
-        {
-            "item": "Lemons",
-            "quantity": "Approximately 2 lemons"
-        },
-        {
-            "item": "Oranges",
-            "quantity": "Approximately 2 oranges"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "3 egg cartons, each containing 12 eggs, total approximately 36 eggs"
-        },
-        {
-            "item": "Milk",
-            "quantity": "1 nearly full bottle of milk"
-        },
-        {
-            "item": "Orange Juice",
-            "quantity": "1 half-full bottle of orange juice"
-        },
-        {
-            "item": "Yogurt",
-            "quantity": "1 container of yogurt"
-        },
-        {
-            "item": "Cheese",
-            "quantity": "Approximately 1 block of cheese"
-        },
-        {
-            "item": "Sour Cream",
-            "quantity": "1 container of sour cream"
-        },
-        {
-            "item": "Butter",
-            "quantity": "1 small container of butter"
-        },
-        {
-            "item": "Ketchup",
-            "quantity": "1 bottle of ketchup"
-        },
-        {
-            "item": "Mustard",
-            "quantity": "1 bottle of mustard"
-        },
-        {
-            "item": "Jams/Jellies",
-            "quantity": "2 jars of jam or jelly"
-        },
-        {
-            "item": "Fruit Salad",
-            "quantity": "1 container of mixed fruit salad"
-        },
-        {
-            "item": "Mixed Berries",
-            "quantity": "1 container of mixed berries (strawberries, blueberries, raspberries)"
-        },
-        {
-            "item": "Grapes",
-            "quantity": "1 bunch of grapes"
+            "quantity": "Small bunch"
         },
         {
             "item": "Apples",
-            "quantity": "Approximately 2 apples"
+            "quantity": "Approximately 3 apples"
         },
         {
-            "item": "Sandwiches",
-            "quantity": "Approximately 4 sandwiches wrapped in plastic"
+            "item": "Oranges",
+            "quantity": "Approximately 4 oranges"
+        },
+        {
+            "item": "Berries",
+            "quantity": "Approximately 1 cup of mixed berries"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "Small bunch"
+        },
+        {
+            "item": "Limes",
+            "quantity": "Approximately 2 limes"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "Full carton (approximately 12 eggs)"
+        },
+        {
+            "item": "Milk",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "Nearly full bottle"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Salad Dressing",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "Approximately 3 containers"
+        },
+        {
+            "item": "Sliced Cheese",
+            "quantity": "Approximately 4 slices"
+        },
+        {
+            "item": "Hummus",
+            "quantity": "Half-full container"
+        },
+        {
+            "item": "Bread",
+            "quantity": "Approximately 2 slices"
+        },
+        {
+            "item": "Avocado",
+            "quantity": "Approximately 1 avocado"
+        },
+        {
+            "item": "Garlic",
+            "quantity": "Small bunch"
         }
     ]
 }
