@@ -86,6 +86,7 @@ def generate_meals():
     if "```json" not in recipes:
         print("No JSON found in response. Emitting full message.")
         emit("response", {"messageRecipes": recipes})
+        handle_get_shopping()
         return
     
     cleaned_data = recipes.strip().split("```json")[1].split("```")[0]
@@ -94,6 +95,8 @@ def generate_meals():
     try:
         recipes_data = json.loads(cleaned_data)
         emit("response", {"recipes": recipes_data})
+        
+        handle_get_shopping()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")

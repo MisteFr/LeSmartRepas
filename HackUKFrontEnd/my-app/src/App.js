@@ -159,7 +159,7 @@ function App() {
     if(data.recipes) {
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
-      socketRef.current.emit("get_shopping");
+      //socketRef.current.emit("get_shopping");
     }
     if(data.messageRecipes){
       const message = data.messageRecipes;
@@ -201,6 +201,8 @@ function App() {
     setIsIngredientsListOpen(false)
     setMeals([])
     setIsMealPreparationOpen(false);
+    setShoppingList([])
+    setIsShoppingListOpen(false);
   };
 
   return (
@@ -384,7 +386,7 @@ function App() {
         </Box>
 
         {/* Animated Line */}
-        <div className="animated-line" />
+        <div className={'animated-line'} />
 
         {/* Upload Image */}
         <Box
@@ -466,7 +468,7 @@ function App() {
             </Box>
           )} */}
 
-        <div className="animated-line" />
+        <div className={ingredients.length == 0 ? 'animated-line-grey' : 'animated-line'} />
           
         <Box
           sx={{
@@ -598,7 +600,7 @@ function App() {
 
         {/* Meal Preparation Section */}
 
-        <div className="animated-line" />
+        <div className={meals.length == 0 ? 'animated-line-grey' : 'animated-line'} />
 
         <Box
           sx={{
@@ -687,7 +689,7 @@ function App() {
           )}
         </Box>
 
-        <div className="animated-line" />
+        <div className={shoppingList.length == 0 ? 'animated-line-grey' : 'animated-line'} />
 
         {/* Shopping List Section */}
         <Box
@@ -781,6 +783,14 @@ function App() {
   margin: 20px 0; /* Adjust margin between sections */
   animation: flow-down 2s infinite linear; 
 }
+
+.animated-line-grey {
+    width: 4px;
+    height: 30px;
+    background: grey; /* Solid grey background */
+    margin: 20px 0;
+    animation: none; /* Remove animation if desired, otherwise you can keep it */
+  }
 
 /* Animation to make the line grow in height */
 @keyframes flow-down {
