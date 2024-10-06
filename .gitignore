@@ -23,3 +23,5 @@ HackUKBackend/__pycache__/inventory.cpython-312.pyc
 HackUKBackend/__pycache__/prompts.cpython-312.pyc
 HackUKBackend/__pycache__/utils.cpython-312.pyc
 HackUKBackend/__pycache__/llms.cpython-312.pyc
+HackUKBackend/__pycache__/recipes.cpython-312.pyc
+HackUKBackend/__pycache__/shopping.cpython-312.pyc
