@@ -13,22 +13,25 @@ from segment import segmentN
 from PIL import Image
 import os
 
-def update_ingredients(image, client, model):
-    #SEGMENTATION
-    images = segmentN(image)
+def update_ingredients(image, client, model, segment = True):
+    if segment:
+        #SEGMENTATION
+        images = segmentN(image)
 
-    output_folder = 'segments2'
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
+        output_folder = 'segments2'
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
 
-    # Save each image in the array
-    for idx, img in enumerate(images):
-        # Define the path where the image will be saved
-        img_path = os.path.join(output_folder, f'image_{idx}.png')
-        
-        # Save the image in png format (you can change the format if needed)
-        img.save(img_path)
-    #SEGMENTATION
+        # Save each image in the array
+        for idx, img in enumerate(images):
+            # Define the path where the image will be saved
+            img_path = os.path.join(output_folder, f'image_{idx}.png')
+            
+            # Save the image in png format (you can change the format if needed)
+            img.save(img_path)
+        #SEGMENTATION
+    else:
+        images = [image]
 
     # Analyze the image and get the ingredients list
     ingredients = mistral(images, client, model, analyse_in_fridge)
