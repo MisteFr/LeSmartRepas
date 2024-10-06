@@ -2,95 +2,107 @@
     "ingredients": [
         {
             "item": "Milk",
-            "quantity": "Half-full bottle"
+            "quantity": "half-full bottle"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "nearly full bottle"
         },
         {
             "item": "Ketchup",
-            "quantity": "Full bottle"
+            "quantity": "approximately 1/4 bottle"
         },
         {
             "item": "Mayonnaise",
-            "quantity": "Nearly full jar"
+            "quantity": "full jar"
         },
         {
             "item": "Mustard",
-            "quantity": "Full jar"
+            "quantity": "full jar"
+        },
+        {
+            "item": "Soy Sauce",
+            "quantity": "full bottle"
         },
         {
             "item": "Olive Oil",
-            "quantity": "Half-full bottle"
+            "quantity": "half-full bottle"
         },
         {
-            "item": "Vinegar",
-            "quantity": "Full bottle"
-        },
-        {
-            "item": "Lettuce",
-            "quantity": "Large head"
-        },
-        {
-            "item": "Carrots",
-            "quantity": "Small bunch"
-        },
-        {
-            "item": "Apples",
-            "quantity": "4"
-        },
-        {
-            "item": "Tomatoes",
-            "quantity": "6"
-        },
-        {
-            "item": "Onions",
-            "quantity": "3"
-        },
-        {
-            "item": "Peppers",
-            "quantity": "2"
-        },
-        {
-            "item": "Avocados",
-            "quantity": "2"
-        },
-        {
-            "item": "Bread",
-            "quantity": "Half loaf"
-        },
-        {
-            "item": "Cheese",
-            "quantity": "Small piece"
+            "item": "Whipped Cream",
+            "quantity": "full can"
         },
         {
             "item": "Yogurt",
-            "quantity": "2 small containers"
+            "quantity": "full container"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "small piece"
         },
         {
             "item": "Eggs",
-            "quantity": "Dozen"
+            "quantity": "4 eggs"
         },
         {
-            "item": "Butter",
-            "quantity": "Small stick"
+            "item": "Apple",
+            "quantity": "3 apples"
+        },
+        {
+            "item": "Pears",
+            "quantity": "4 pears"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "bunch"
+        },
+        {
+            "item": "Broccoli",
+            "quantity": "small bunch"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "2 heads"
+        },
+        {
+            "item": "Onions",
+            "quantity": "2 onions"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6 tomatoes"
+        },
+        {
+            "item": "Bell Peppers",
+            "quantity": "2 bell peppers"
+        },
+        {
+            "item": "Avocados",
+            "quantity": "3 avocados"
         },
         {
             "item": "Grapes",
-            "quantity": "Small bunch"
+            "quantity": "1 bunch"
         },
         {
-            "item": "Baking Soda",
-            "quantity": "Small box"
+            "item": "Bread",
+            "quantity": "1 loaf"
         },
         {
-            "item": "Beer",
-            "quantity": "4 bottles"
+            "item": "Butter",
+            "quantity": "small piece"
         },
         {
-            "item": "Wine",
-            "quantity": "1 bottle"
+            "item": "Ham",
+            "quantity": "small piece"
         },
         {
-            "item": "Sprinkles",
-            "quantity": "Small jar"
+            "item": "Salami",
+            "quantity": "small piece"
+        },
+        {
+            "item": "Sausage",
+            "quantity": "small piece"
         }
     ]
 }
