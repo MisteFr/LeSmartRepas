@@ -2,23 +2,63 @@
     "ingredients": [
         {
             "item": "Tomatoes",
-            "quantity": "10"
-        },
-        {
-            "item": "Apples",
-            "quantity": "4"
-        },
-        {
-            "item": "Oranges",
             "quantity": "5"
         },
         {
-            "item": "Peaches",
-            "quantity": "8"
+            "item": "Carrots",
+            "quantity": "4"
         },
         {
-            "item": "Bottled Sauce or Dressing",
-            "quantity": "1 half-full bottle"
+            "item": "Apples",
+            "quantity": "2"
+        },
+        {
+            "item": "Milk",
+            "quantity": "half-full bottle"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "1 dozen"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "1 pack"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "3 cups"
+        },
+        {
+            "item": "Pasta Sauce",
+            "quantity": "1 bottle"
+        },
+        {
+            "item": "Jelly",
+            "quantity": "1 jar"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "1 bunch"
+        },
+        {
+            "item": "Peppers",
+            "quantity": "3"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "2 heads"
+        },
+        {
+            "item": "Orange",
+            "quantity": "2"
+        },
+        {
+            "item": "Cucumbers",
+            "quantity": "1"
+        },
+        {
+            "item": "Cherry Tomatoes",
+            "quantity": "1 pint"
         }
     ]
 }
