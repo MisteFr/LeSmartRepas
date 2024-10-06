@@ -764,7 +764,7 @@ function App() {
       color: "#555", // Optional: Text color for the footer
     }}
   >
-    Authors: Arthur Bigot, Jacob David, Giuliano Costa
+    Authors: Arthur Bigot, Jacob Davis, Giuliano Costa
   </Typography>
 </Box>
 
