@@ -59,8 +59,18 @@ def generate_meals():
     model = "pixtral-12b-2409"
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
+    
+    print(recipes)
+    
+    cleaned_data = recipes.strip().split("```json")[1].split("```")[0]
 
-    emit("response", {"recipes": recipes})
+    # Parse the cleaned string as JSON
+    try:
+        recipes_data = json.loads(cleaned_data)
+        emit("response", {"recipes": recipes_data})
+
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
 
 @socketio.on("get_shopping")
 def handle_get_shopping(data):
