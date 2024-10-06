@@ -6,10 +6,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
-from utils import count_calories, decode_image_base64, encode_image_base64
+from utils import count_calories, decode_image_base64, encode_image_base64, save_ingredients_as_json
 from inventory import get_ingredients, update_ingredients
 import json
 from recipes import get_possible_recipes
+from shopping import get_shopping
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -56,6 +57,20 @@ def handle_get_meals(data):
 
     emit("response", {"recipes": recipes})
 
+@socketio.on("get_shopping")
+def handle_get_shopping(data):
+    ingredientsJson = get_ingredients()
+    recipes = get_shopping(ingredientsJson)
+
+    emit("response", {"recipes": recipes})
+
+@socketio.on("save_ingredients")
+def handle_save_ingredients(data):
+    save_ingredients_as_json(data, file_name="ingredients.json")
+
+@socketio.on("submit_user_data")
+def handle_submit_user_data(data):
+    save_ingredients_as_json(data, file_name="user_data.json")
 
 # Example usage to run the Flask app
 if __name__ == "__main__":

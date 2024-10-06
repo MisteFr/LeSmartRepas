@@ -3,117 +3,97 @@
         {
             "item": "Tomatoes",
             "quantity": "6",
-            "location": "Top shelf, left side"
+            "location": "Top shelf, center"
         },
         {
             "item": "Orange",
-            "quantity": "1",
-            "location": "Top shelf, right side"
+            "quantity": "2",
+            "location": "Top shelf, left"
         },
         {
-            "item": "Carrots",
-            "quantity": "3",
-            "location": "Top shelf, left side"
+            "item": "Bell Peppers",
+            "quantity": "2",
+            "location": "Second shelf, left"
         },
         {
-            "item": "Cabbage",
-            "quantity": "1/2 head",
-            "location": "Top shelf, left side"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "1 dozen",
-            "location": "Top shelf, right side"
-        },
-        {
-            "item": "Green Beans",
-            "quantity": "1/2 lb",
-            "location": "Middle shelf, left side"
+            "item": "Lettuce",
+            "quantity": "1 head",
+            "location": "Second shelf, right"
         },
         {
             "item": "Cucumbers",
             "quantity": "2",
-            "location": "Middle shelf, right side"
+            "location": "Second shelf, center"
         },
         {
-            "item": "Strawberries",
-            "quantity": "1/2 container",
-            "location": "Middle shelf, left side"
+            "item": "Carrots",
+            "quantity": "8",
+            "location": "Second shelf, center"
+        },
+        {
+            "item": "Green Beans",
+            "quantity": "1 package",
+            "location": "Second shelf, center"
         },
         {
             "item": "Grapes",
-            "quantity": "1/2 lb",
-            "location": "Middle shelf, left side"
+            "quantity": "1 bunch",
+            "location": "Third shelf, left"
         },
         {
-            "item": "Onions",
-            "quantity": "3",
-            "location": "Middle shelf, left side"
+            "item": "Strawberries",
+            "quantity": "1 container",
+            "location": "Third shelf, right"
+        },
+        {
+            "item": "Blueberries",
+            "quantity": "1 container",
+            "location": "Third shelf, right"
         },
         {
             "item": "Milk",
-            "quantity": "1/2 full bottle",
-            "location": "Middle shelf, right side"
+            "quantity": "Nearly full",
+            "location": "Third shelf, right"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "1 dozen",
+            "location": "Third shelf, right"
         },
         {
             "item": "Cheese",
             "quantity": "1 block",
-            "location": "Middle shelf, right side"
+            "location": "Third shelf, left"
         },
         {
             "item": "Yogurt",
-            "quantity": "1 container",
-            "location": "Middle shelf, right side"
+            "quantity": "1 cup",
+            "location": "Third shelf, left"
         },
         {
-            "item": "Broccoli",
-            "quantity": "1 bunch",
-            "location": "Middle shelf, left side"
-        },
-        {
-            "item": "Red Bell Peppers",
-            "quantity": "2",
-            "location": "Middle shelf, left side"
-        },
-        {
-            "item": "Apples",
-            "quantity": "2",
-            "location": "Bottom shelf, left side"
-        },
-        {
-            "item": "Peaches",
-            "quantity": "2",
-            "location": "Bottom shelf, left side"
-        },
-        {
-            "item": "Mushrooms",
-            "quantity": "1 container",
-            "location": "Bottom shelf, left side"
-        },
-        {
-            "item": "Chicken breasts",
-            "quantity": "2",
-            "location": "Bottom shelf, middle"
-        },
-        {
-            "item": "Salad dressing",
-            "quantity": "1 bottle",
-            "location": "Top shelf, left side"
+            "item": "Salad Dressing",
+            "quantity": "Half-full bottle",
+            "location": "Top shelf, right"
         },
         {
             "item": "Ketchup",
-            "quantity": "1 bottle",
-            "location": "Top shelf, left side"
+            "quantity": "Full bottle",
+            "location": "Top shelf, left"
         },
         {
             "item": "Mayonnaise",
-            "quantity": "1 jar",
-            "location": "Top shelf, left side"
+            "quantity": "Nearly full bottle",
+            "location": "Top shelf, left"
         },
         {
-            "item": "Yogurt",
-            "quantity": "1 container",
-            "location": "Bottom shelf, middle"
+            "item": "Salsa",
+            "quantity": "Full jar",
+            "location": "Top shelf, center"
+        },
+        {
+            "item": "Jams",
+            "quantity": "2 jars",
+            "location": "Top shelf, left"
         }
     ]
 }
