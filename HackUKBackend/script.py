@@ -9,6 +9,7 @@ import json
 from utils import count_calories, decode_image_base64, encode_image_base64
 from inventory import get_ingredients, update_ingredients
 import json
+from recipes import get_possible_recipes
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -47,6 +48,13 @@ def handle_image_submission(data):
 
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
+
+@socketio.on("get_meals")
+def handle_get_meals(data):
+    ingredientsJson = get_ingredients()
+    recipes = get_possible_recipes(ingredientsJson)
+
+    emit("response", {"recipes": recipes})
 
 
 # Example usage to run the Flask app

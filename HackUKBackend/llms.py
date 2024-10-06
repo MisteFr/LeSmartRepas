@@ -11,28 +11,30 @@ from utils import encode_image_base64
 
 # Function to call Mistral API for image analysis
 def mistral(image, client, model, text):
-    # Convert the image to base64 string
-    image_base64 = encode_image_base64(image)
-    print("called")
+    messages = {"role": "user",
+                "content": []}
     
+    #Add text
+    if text != None:
+        messages["content"].append({
+                        "type": "text",
+                        "text": (text)
+                    })
+    
+    #Add image    
+    if image != None:
+        # Convert the image to base64 string
+        image_base64 = encode_image_base64(image)
+
+        messages["content"].append({
+                        "type": "image_url",
+                        "image_url": f"data:image/jpeg;base64,{image_base64}"
+                    })
+        
     # Prepare the request payload
     chat_response = client.chat.complete(
         model=model,
-        messages = [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": (text)
-                    },
-                    {
-                        "type": "image_url",
-                        "image_url": f"data:image/jpeg;base64,{image_base64}"
-                    }
-                ]
-            },
-        ]
+        messages = [messages]
     )
     
     # Get the response content
