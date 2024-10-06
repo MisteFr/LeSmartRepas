@@ -217,7 +217,7 @@ function App() {
             backgroundColor: "#f0f0f0",
             padding: "20px",
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "20px"
           }}
         >
           <Typography
@@ -230,6 +230,24 @@ function App() {
           >
             LeSmartRepas 🧊
           </Typography>
+          <br></br>
+          <Typography
+              level="h2"
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "4px",
+                fontSize: "16px",
+                color: "#555", // Optional: color of the subheader text
+              }}
+            >
+              Powered by 
+              <img 
+                src="icon.svg" 
+                style={{ width: '30px', height: '30px', marginLeft: '10px' }} 
+              />
+            </Typography>
         </Box>
 
         {/* Nutritional Setup Section */}
@@ -239,8 +257,7 @@ function App() {
             maxWidth: "900px",
             border: "1px solid #ccc",
             borderRadius: "10px",
-            padding: "20px",
-            marginBottom: "20px",
+            padding: "20px"
           }}
         >
           <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
@@ -284,8 +301,7 @@ function App() {
                     justifyContent: "center",
                     alignItems: "center",
                     gap: 2,
-                    width: "100%",
-                    marginBottom: "20px",
+                    width: "100%"
                   }}
                 >
                   <Checkbox
@@ -368,6 +384,9 @@ function App() {
           </Box>
         </Box>
 
+        {/* Animated Line */}
+        <div className="animated-line" />
+
         {/* Upload Image */}
         <Box
           sx={{
@@ -375,8 +394,7 @@ function App() {
             maxWidth: "900px",
             border: "1px solid #ccc",
             borderRadius: "10px",
-            padding: "20px",
-            marginBottom: "20px"
+            padding: "20px"
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -449,6 +467,7 @@ function App() {
             </Box>
           )} */}
 
+        <div className="animated-line" />
           
         <Box
           sx={{
@@ -456,8 +475,7 @@ function App() {
             maxWidth: "900px",
             border: "1px solid #ccc",
             borderRadius: "10px",
-            padding: "20px",
-            marginBottom: "20px"
+            padding: "20px"
           }}
         >
 
@@ -580,6 +598,9 @@ function App() {
           </Box>
 
         {/* Meal Preparation Section */}
+
+        <div className="animated-line" />
+
         <Box
           sx={{
             width: "100%",
@@ -667,7 +688,7 @@ function App() {
           )}
         </Box>
 
-
+        <div className="animated-line" />
 
         {/* Shopping List Section */}
         <Box
@@ -723,9 +744,60 @@ function App() {
               </ul>
             </Box>
           )}
+
         </Box>
+        <Box
+  sx={{
+    width: "100%",
+    backgroundColor: "#f0f0f0",
+    padding: "10px",
+    textAlign: "center",
+    marginTop: "20px", /* Adds space above the footer */
+  }}
+>
+  <Typography
+    level="body2"
+    sx={{
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",     
+      color: "#555", // Optional: Text color for the footer
+    }}
+  >
+    Authors: Arthur Bigot, Jacob David, Giuliano Costa
+  </Typography>
+</Box>
+
         
       </Container>
+
+      <style jsx>{`
+        .animated-line {
+  width: 4px; /* Narrow width for vertical line */
+  height: 30px; /* Height can be adjusted based on your needs */
+  background: linear-gradient(180deg, rgb(248, 207, 70), rgb(235, 51, 38)); /* Vertical gradient */
+  background-size: 100% 200%; /* The gradient is twice the height of the element */
+    background-position: 0 0; /* Start the gradient at the top */
+  margin: 20px 0; /* Adjust margin between sections */
+  animation: flow-down 2s infinite linear; 
+}
+
+/* Animation to make the line grow in height */
+@keyframes flow-down {
+    0% {
+      background-position: 0 0; /* Yellow at top, orange at bottom */
+    }
+    50% {
+      background-position: 0 100%; /* Orange moves up, yellow moves down */
+    }
+    100% {
+      background-position: 0 0; /* Reset to yellow at top */
+    }
+  }
+
+      `}</style>
+
     </CssVarsProvider>
   );
 }
