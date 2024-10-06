@@ -26,6 +26,7 @@ function App() {
   const [goalType, setGoalType] = useState("");
   const [goalDetails, setGoalDetails] = useState("");
   const [meals, setMeals] = useState([]);
+  const [shoppingList, setShoppingList] = useState([]);
   const [image, setImage] = useState(null); // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
   const [ingredients, setIngredients] = useState([]); // State to store ingredients list
@@ -70,8 +71,11 @@ function App() {
     const storedIngredients = JSON.parse(
       localStorage.getItem("ingredientsList")
     );
-    if (storedIngredients) {
+    if (storedIngredients && storedIngredients.length > 0) {
       setIngredients(storedIngredients);
+      setIsUploadFileSetupOpen(false);
+      socketRef.current.emit("request_recipes");
+      socketRef.current.emit("get_shopping");
     }
   }, []);
 
@@ -144,15 +148,27 @@ function App() {
       setIngredients(data.ingredients.ingredients);
       localStorage.setItem('ingredientsList', JSON.stringify(data.ingredients.ingredients));
       setLoading(false);
+      setIsUploadFileSetupOpen(false);
+
+      //waiting for meals next
+      setMeals([])
+      setIsMealPreparationOpen(false);
     }
     if (data.calories) {
       setCalories(data.calories);
     }
     if(data.recipes) {
-      console.log(data.recipes)
-
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
+    }
+    if(data.messageRecipes){
+      const message = data.messageRecipes;
+      setMeals([{ message }]);  // Store the message in an array to treat it as a "meal"
+      setIsMealPreparationOpen(true);
+    }
+    if(data.shopping){
+      console.log(data.shopping)
+      setShoppingList(data.shopping)
     }
   });
 
@@ -183,6 +199,9 @@ function App() {
     console.log("Updated Ingredients:", ingredients);
     // Send data to the backend
     socketRef.current.emit("save_ingredients", JSON.stringify(ingredients));
+    setIsIngredientsListOpen(false)
+    setMeals([])
+    setIsMealPreparationOpen(false);
   };
 
   return (
@@ -362,10 +381,12 @@ function App() {
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Typography level="h2">Upload Image</Typography>
-            {ingredients.length > 0 && (
+            {ingredients.length > 0 ? (
               <CheckCircleIcon
                 sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
               />
+            ) : (
+              loading && <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
             )}
             <Button
               variant="outlined"
@@ -566,13 +587,21 @@ function App() {
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
-            marginBottom: "20px",
+            marginBottom: "20px", // Add more margin between meals
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <Typography level="h2" sx={{ display: "inline-block" }}>
-              Meal Preparation
+            <Typography level="h2" sx={{ display: "inline-block", color: "black" }}>
+              Suggested Meals
             </Typography>
+            {meals.length > 0 ? (
+              <CheckCircleIcon
+                sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+              />
+            ) : (
+              ingredients.length > 0 && (
+              <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
+            ))}
             <Button
               variant="outlined"
               onClick={() => setIsMealPreparationOpen(!isMealPreparationOpen)}
@@ -586,27 +615,53 @@ function App() {
           {isMealPreparationOpen && meals.length > 0 && (
             <Box sx={{ mt: 4 }}>
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-                {meals.map((meal, index) => (
-                  <li key={index} style={{ marginBottom: "20px" }}>
-                    {/* Meal Name */}
-                    <Typography variant="h5" mb={1} sx={{ color: "black" }}>
-                      <strong>Meal Name:</strong> {meal.name}
-                    </Typography>
+              {meals.map((meal, index) => (
+                <li 
+                  key={index} 
+                  style={{ 
+                    marginBottom: "40px", 
+                    padding: "20px", 
+                    border: "1px solid #ddd", // Add a border around each meal
+                    borderRadius: "8px"  // Optional: add rounded corners
+                  }}
+                >
 
-                    {/* Ingredients List */}
-                    <Typography variant="body1" mb={1} sx={{ color: "black" }}>
-                      <strong>Ingredients:</strong>{" "}
-                      {Object.entries(meal.ingredients)
-                        .map(([key, value]) => `${key}: ${value}`)
-                        .join(", ")}
+              {meal.message ? (
+                    <Typography variant="h6" sx={{ color: "black" }}>
+                      {meal.message}
                     </Typography>
+                  ) : (
+                    <>
+                  {/* Meal Name */}
+                  <Typography variant="h5" mb={1} sx={{ color: "black" }}>
+                    <strong>Meal Name:</strong> {meal.name}
+                  </Typography>
 
-                    {/* How to Prepare */}
-                    <Typography variant="body1" mb={2} sx={{ color: "black" }}>
-                      <strong>How to Prepare:</strong> {meal.howToPrepare}
-                    </Typography>
-                  </li>
-                ))}
+                  {/* Ingredients List */}
+                  <Typography variant="body1" mb={1} sx={{ color: "black" }}>
+                    <strong>Ingredients:</strong>
+                    <ul>
+                      {meal.ingredients.split("\n").map((ingredient, idx) => (
+                        <li key={idx} style={{ marginLeft: "20px" }}>{ingredient.replace("-", "").trim()}</li>
+                      ))}
+                    </ul>
+                  </Typography>
+
+                  {/* How to Prepare */}
+                  <Typography variant="body1" mb={2} sx={{ color: "black" }}>
+                    <strong>How to Prepare:</strong>
+                    <ol>
+                      {meal.howToPrepare.split("\n").map((instruction, idx) => (
+                        <li key={idx} style={{ marginLeft: "20px", marginTop: "10px" }}>
+                          {instruction.replace(/^\d+\.\s*/, '')}
+                        </li>
+                      ))}
+                    </ol>
+                  </Typography>
+                  </>
+                )}
+                </li>
+              ))}
               </ul>
             </Box>
           )}
@@ -614,41 +669,61 @@ function App() {
 
 
 
-          <Box
+        {/* Shopping List Section */}
+        <Box
           sx={{
             width: "100%",
             maxWidth: "900px",
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
-            marginBottom: "20px"
+            marginBottom: "20px", // Add more margin between shopping list items
           }}
         >
-
-
-        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              <Typography level="h2" sx={{ display: "inline-block" }}>
-                Shopping List
-              </Typography>
-              {/* {isFilledFromStorage && (
-                <CheckCircleIcon
-                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
-                />
-              )} */}
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  setIsShoppingListOpen(!isShoppingListOpen)
-                }
-                sx={{ textTransform: "none", marginLeft: "auto" }}
-              >
-                {isShoppingListOpen ? "Collapse" : "Open"}
-              </Button>
-            </Box>
-
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Typography level="h2" sx={{ display: "inline-block", color: "black" }}>
+              Shopping List
+            </Typography>
+            {shoppingList.length > 0 ? (
+              <CheckCircleIcon
+                sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+              />
+            ) : (
+              ingredients.length > 0 && (
+              <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
+            ))}
+            <Button
+              variant="outlined"
+              onClick={() => setIsShoppingListOpen(!isShoppingListOpen)}
+              sx={{ textTransform: "none", marginLeft: "auto" }}
+            >
+              {isShoppingListOpen ? "Collapse" : "Open"}
+            </Button>
           </Box>
+
+          {/* Shopping List */}
+          {isShoppingListOpen && shoppingList.length > 0 && (
+            <Box sx={{ mt: 2 }}> {/* Reduced margin-top */}
+              <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+                {shoppingList.map((item, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      marginBottom: "10px", // Reduced margin between items
+                      padding: "8px", // Reduced padding for each item
+                      border: "1px solid #ddd",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Typography variant="h6" mb={1} sx={{ color: "black", fontSize: "1rem" }}> {/* Smaller font size */}
+                      <strong>{item.name}</strong> - {item.Reason}
+                    </Typography>
+                  </li>
+                ))}
+              </ul>
+            </Box>
+          )}
+        </Box>
         
       </Container>
     </CssVarsProvider>

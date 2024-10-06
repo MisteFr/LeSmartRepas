@@ -39,8 +39,6 @@ def mistral(images, client, model, text, personal_details = None):
                             "image_url": f"data:image/jpeg;base64,{image_base64}"
                         })
         
-    print(messages)
-        
     # Prepare the request payload
     chat_response = client.chat.complete(
         model=model,

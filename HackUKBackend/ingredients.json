@@ -1,92 +1,96 @@
-[
-    {
-        "item": "Milk",
-        "quantity": "half-full",
-        "location": "Top shelf, left side"
-    },
-    {
-        "item": "Ketchup",
-        "quantity": "full bottle",
-        "location": "Top shelf, center"
-    },
-    {
-        "item": "Mustard",
-        "quantity": "full bottle",
-        "location": "Top shelf, center"
-    },
-    {
-        "item": "Olive Oil",
-        "quantity": "full bottle",
-        "location": "Top shelf, center"
-    },
-    {
-        "item": "Apple Sauce",
-        "quantity": "full container",
-        "location": "Top shelf, left side"
-    },
-    {
-        "item": "Orange Juice",
-        "quantity": "nearly full",
-        "location": "Middle shelf, left side"
-    },
-    {
-        "item": "Red Wine",
-        "quantity": "half-full bottle",
-        "location": "Middle shelf, left side"
-    },
-    {
-        "item": "Beer",
-        "quantity": "3 bottles",
-        "location": "Middle shelf, center"
-    },
-    {
-        "item": "Tomatoes",
-        "quantity": "6",
-        "location": "Middle shelf, right side"
-    },
-    {
-        "item": "Apples",
-        "quantity": "4",
-        "location": "Middle shelf, right side"
-    },
-    {
-        "item": "Onions",
-        "quantity": "4",
-        "location": "Middle shelf, right side"
-    },
-    {
-        "item": "Lettuce",
-        "quantity": "1 head",
-        "location": "Middle shelf, right side"
-    },
-    {
-        "item": "Cheese",
-        "quantity": "1 block",
-        "location": "Middle shelf, right side"
-    },
-    {
-        "item": "Eggs",
-        "quantity": "1 dozen",
-        "location": "Middle shelf, center"
-    },
-    {
-        "item": "Yogurt",
-        "quantity": "full container",
-        "location": "Middle shelf, center"
-    },
-    {
-        "item": "Bananas",
-        "quantity": "2",
-        "location": "Top shelf, right side"
-    },
-    {
-        "item": "Salad",
-        "quantity": "1 bowl",
-        "location": "Top shelf, right side"
-    },
-    {
-        "item": "Ham",
-        "quantity": "half-package",
-        "location": "Top shelf, right side"
-    }
-]
+{
+    "ingredients": [
+        {
+            "item": "Milk",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "Nearly full jar"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "Full jar"
+        },
+        {
+            "item": "Olive Oil",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Vinegar",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "Large head"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "Small bunch"
+        },
+        {
+            "item": "Apples",
+            "quantity": "4"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6"
+        },
+        {
+            "item": "Onions",
+            "quantity": "3"
+        },
+        {
+            "item": "Peppers",
+            "quantity": "2"
+        },
+        {
+            "item": "Avocados",
+            "quantity": "2"
+        },
+        {
+            "item": "Bread",
+            "quantity": "Half loaf"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "Small piece"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "2 small containers"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "Dozen"
+        },
+        {
+            "item": "Butter",
+            "quantity": "Small stick"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "Small bunch"
+        },
+        {
+            "item": "Baking Soda",
+            "quantity": "Small box"
+        },
+        {
+            "item": "Beer",
+            "quantity": "4 bottles"
+        },
+        {
+            "item": "Wine",
+            "quantity": "1 bottle"
+        },
+        {
+            "item": "Sprinkles",
+            "quantity": "Small jar"
+        }
+    ]
+}
