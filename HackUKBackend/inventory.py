@@ -15,15 +15,3 @@ def update_ingredients(image, client, model):
     ingredients = mistral(image, client, model, analyse_in_fridge)
     # Save the ingredients as JSON locally
     ingredientsJson = save_ingredients_as_json(ingredients, file_name="ingredients.json")
-
-def get_ingredients(file_path='ingredients.json'):
-    try:
-        with open(file_path, 'r') as file:
-            ingredients = json.load(file)
-            return ingredients
-    except FileNotFoundError:
-        print(f"The file {file_path} does not exist.")
-        return None
-    except json.JSONDecodeError:
-        print(f"The file {file_path} does not contain valid JSON.")
-        return None
