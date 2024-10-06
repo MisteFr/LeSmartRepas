@@ -66,11 +66,31 @@ def handle_get_shopping(data):
 
 @socketio.on("save_ingredients")
 def handle_save_ingredients(data):
-    save_ingredients_as_json(data, file_name="ingredients.json")
+    print("hre 1")
+    print(data)
+    
+    try:
+        ingredients_data = json.loads(data)
+
+        with open("ingredients.json", "w") as json_file:
+            json.dump(ingredients_data, json_file, indent=4)
+            print(f"Ingredients saved to ingredients.json")
+
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+    
 
 @socketio.on("submit_user_data")
-def handle_submit_user_data(data):
-    save_ingredients_as_json(data, file_name="user_data.json")
+def handle_submit_user_data(data):    
+    try:
+        user_data = data
+
+        with open("user_data.json", "w") as json_file:
+            json.dump(user_data, json_file, indent=4)
+            print(f"pref saved to user_data.json")
+
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
 
 # Example usage to run the Flask app
 if __name__ == "__main__":

@@ -1,79 +1,126 @@
-{
-    "ingredients": [
-        {
-            "item": "Milk",
-            "quantity": "Full",
-            "location": "Top left"
-        },
-        {
-            "item": "Orange Juice",
-            "quantity": "Half-full",
-            "location": "Middle left"
-        },
-        {
-            "item": "Ketchup",
-            "quantity": "Nearly full",
-            "location": "Middle left"
-        },
-        {
-            "item": "Mayonnaise",
-            "quantity": "Half-full",
-            "location": "Top left"
-        },
-        {
-            "item": "Yogurt",
-            "quantity": "Full",
-            "location": "Top left"
-        },
-        {
-            "item": "Jars (various)",
-            "quantity": "5",
-            "location": "Middle right"
-        },
-        {
-            "item": "Bottles (various)",
-            "quantity": "4",
-            "location": "Middle right"
-        },
-        {
-            "item": "Apples",
-            "quantity": "2",
-            "location": "Middle right"
-        },
-        {
-            "item": "Carrots",
-            "quantity": "Approx 10",
-            "location": "Middle right"
-        },
-        {
-            "item": "Salad",
-            "quantity": "Large bowl",
-            "location": "Middle right"
-        },
-        {
-            "item": "Cheese",
-            "quantity": "Full package",
-            "location": "Middle right"
-        },
-        {
-            "item": "Eggs",
-            "quantity": "6",
-            "location": "Middle right"
-        },
-        {
-            "item": "Onions",
-            "quantity": "2",
-            "location": "Middle right"
-        },
-        {
-            "item": "Cucumbers",
-            "quantity": "2",
-            "location": "Middle right"
-        },
-        {
-            "item": "Grapes",
-            "quantity": "Small bowl",
-            "location": "Middle right"
-        }
-    ]
-}
+[
+    {
+        "item": "Yogurt",
+        "quantity": "full",
+        "location": "Top shelf, middle"
+    },
+    {
+        "item": "Butter",
+        "quantity": "half-full",
+        "location": "Top shelf, right side"
+    },
+    {
+        "item": "Cheese",
+        "quantity": "small piece",
+        "location": "Top shelf, right side"
+    },
+    {
+        "item": "Yellow Bell Peppers",
+        "quantity": "2",
+        "location": "Top shelf, right side"
+    },
+    {
+        "item": "Bread",
+        "quantity": "2 slices",
+        "location": "Top shelf, right side"
+    },
+    {
+        "item": "Lettuce",
+        "quantity": "1 head",
+        "location": "Middle shelf, right side"
+    },
+    {
+        "item": "Apples",
+        "quantity": "3",
+        "location": "Middle shelf, middle"
+    },
+    {
+        "item": "Tomatoes",
+        "quantity": "5",
+        "location": "Middle shelf, middle"
+    },
+    {
+        "item": "Carrots",
+        "quantity": "1 bunch",
+        "location": "Middle shelf, middle"
+    },
+    {
+        "item": "Cabbage",
+        "quantity": "1 small head",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Hummus",
+        "quantity": "half-full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Ketchup",
+        "quantity": "half-full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Mustard",
+        "quantity": "half-full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Mayonnaise",
+        "quantity": "half-full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Lemon Juice",
+        "quantity": "full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Olive Oil",
+        "quantity": "full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Salad Dressing",
+        "quantity": "half-full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Eggs",
+        "quantity": "6",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Applesauce",
+        "quantity": "full",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Beverage Bottles",
+        "quantity": "5",
+        "location": "Middle shelf, left side"
+    },
+    {
+        "item": "Fruit",
+        "quantity": "1 bowl",
+        "location": "Middle shelf, right side"
+    },
+    {
+        "item": "Beverage Bottles",
+        "quantity": "4",
+        "location": "Middle shelf, right side"
+    },
+    {
+        "item": "Milk",
+        "quantity": "half-full",
+        "location": "Bottom shelf, left side"
+    },
+    {
+        "item": "Orange Juice",
+        "quantity": "half-full",
+        "location": "Bottom shelf, left side"
+    },
+    {
+        "item": "tttest",
+        "quantity": "test"
+    }
+]

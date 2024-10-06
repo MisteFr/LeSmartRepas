@@ -175,7 +175,7 @@ function App() {
     localStorage.setItem("ingredientsList", JSON.stringify(ingredients));
     console.log("Updated Ingredients:", ingredients);
     // Send data to the backend
-    socketRef.current.emit("submit_user_data", JSON.stringify(ingredients));
+    socketRef.current.emit("save_ingredients", JSON.stringify(ingredients));
   };
 
   return (
