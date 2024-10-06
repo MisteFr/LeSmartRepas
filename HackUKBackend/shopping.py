@@ -8,10 +8,10 @@ from flask_socketio import SocketIO, emit
 import json
 from utils import decode_image_base64, encode_image_base64, save_ingredients_as_json
 from llms import mistral
-from prompts import generate_recipes
+from prompts import generate_shopping
 
 def get_shopping(ingredients, client, model, personal_details =None):
     # Analyze the image and get the ingredients list
-    recipes = mistral(None, client, model, generate_recipes + str(ingredients), personal_details = personal_details)
+    recipes = mistral(None, client, model, generate_shopping + str(ingredients), personal_details = personal_details)
 
     return recipes

@@ -75,6 +75,7 @@ def generate_meals():
     user_data = get_data("user_data.json")
 
     model = "mistral-large-latest"
+    model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
     
@@ -95,11 +96,12 @@ def handle_get_shopping(data):
     ingredientsJson = get_data()
     user_data = get_data("user_data.json")
 
-    model = "pixtral-12b-2409"
+    model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
-    recipes = get_shopping(ingredientsJson, client, model, user_data)
+    shopping = get_shopping(ingredientsJson, client, model, user_data)
 
-    emit("response", {"recipes": recipes})
+    print(shopping)
+    emit("response", {"shopping": shopping})
     
     
 @socketio.on("request_recipes")
@@ -139,3 +141,4 @@ def handle_submit_user_data(data):
 # Example usage to run the Flask app
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=5001)
+
