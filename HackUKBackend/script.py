@@ -11,6 +11,10 @@ from inventory import update_ingredients
 import json
 from recipes import get_possible_recipes
 from shopping import get_shopping
+import time
+
+
+last_generate_meals_call = 0
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -48,15 +52,29 @@ def handle_image_submission(data):
     # Save the ingredients as JSON locally
     ingredientsJson = get_data()
     calories = count_calories(client, model, "ingredients.json")
-
+    
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
+    
+    generate_meals()
 
 def generate_meals():
+    global last_generate_meals_call
+    
+    current_time = time.time()
+    # Check if the function was called less than 2 seconds ago
+    if current_time - last_generate_meals_call < 2:
+        print("generate_meals called too recently. Skipping execution.")
+        return
+    
+    print("Generating meals")
+    # Update the last call timestamp
+    last_generate_meals_call = current_time
+    
     ingredientsJson = get_data()
     user_data = get_data("user_data.json")
 
-    model = "pixtral-12b-2409"
+    model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
     
@@ -82,6 +100,11 @@ def handle_get_shopping(data):
     recipes = get_shopping(ingredientsJson, client, model, user_data)
 
     emit("response", {"recipes": recipes})
+    
+    
+@socketio.on("request_recipes")
+def handle_request_recipes():
+    generate_meals()
 
 @socketio.on("save_ingredients")
 def handle_save_ingredients(data):
@@ -92,7 +115,7 @@ def handle_save_ingredients(data):
             json.dump(ingredients_data, json_file, indent=4)
             print(f"Ingredients saved to ingredients.json")
             
-            generate_meals()
+        generate_meals()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
@@ -107,7 +130,7 @@ def handle_submit_user_data(data):
             json.dump(user_data, json_file, indent=4)
             print(f"pref saved to user_data.json")
             
-            generate_meals()
+        generate_meals()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")

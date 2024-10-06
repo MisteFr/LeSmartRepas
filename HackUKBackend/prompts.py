@@ -21,11 +21,18 @@ analyse_in_fridge = '''(
 
 generate_recipes = '''Given the list of items in a fridge suggest possible recipes that I can make
                     give the respones in the following json format:
+                    [{
+                        "name": "Name of the plate1",
+                        "ingredients": "List of ingredients used and associated quantity eg:  - Ingredient1: quantity \\n - Ingredient2: quantity, etc..",
+                        "howToPrepare": "Quick description of how to prepare the meal beginner friendly eg: 1. Crack the eggs into a pan greased with olive oil and scramble until fully cooked.\\n2. Dice the tomatoes and onions.\\netc"
+                    },
                     {
-                        "name": "Name of the plate",
-                        "ingredients": "List of ingredients used and associated quantity",
-                        "howToPrepare": "Quick description of how to prepare the meal beginner friendly"
-                    }
+                      "name": "Name of the plate2",
+                      etc..
+                      
+                    },
+                    ..
+                    ]
                     
-                    Here are the available ingredients:
+                    Here are the ONLY available ingredients, don't use anything that's not from the following list:
                     ingredients:'''

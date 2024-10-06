@@ -1,8 +1,9 @@
 {
     "preferences": [
-        "highProtein"
+        "vegetarian",
+        "vegan"
     ],
-    "restrictions": "No cheese boi",
+    "restrictions": "No cheese",
     "goalType": "macro-balance",
-    "goalDetails": "2500 calories a day. Focusing on gaining weight."
+    "goalDetails": "I want to gain weight."
 }

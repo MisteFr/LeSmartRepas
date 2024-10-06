@@ -70,8 +70,10 @@ function App() {
     const storedIngredients = JSON.parse(
       localStorage.getItem("ingredientsList")
     );
-    if (storedIngredients) {
+    if (storedIngredients && storedIngredients.length > 0) {
       setIngredients(storedIngredients);
+      setIsUploadFileSetupOpen(false);
+      socketRef.current.emit("request_recipes");
     }
   }, []);
 
@@ -144,13 +146,16 @@ function App() {
       setIngredients(data.ingredients.ingredients);
       localStorage.setItem('ingredientsList', JSON.stringify(data.ingredients.ingredients));
       setLoading(false);
+      setIsUploadFileSetupOpen(false);
+
+      //waiting for meals next
+      setMeals([])
+      setIsMealPreparationOpen(false);
     }
     if (data.calories) {
       setCalories(data.calories);
     }
     if(data.recipes) {
-      console.log(data.recipes)
-
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
     }
@@ -183,6 +188,9 @@ function App() {
     console.log("Updated Ingredients:", ingredients);
     // Send data to the backend
     socketRef.current.emit("save_ingredients", JSON.stringify(ingredients));
+    setIsIngredientsListOpen(false)
+    setMeals([])
+    setIsMealPreparationOpen(false);
   };
 
   return (
@@ -362,10 +370,12 @@ function App() {
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Typography level="h2">Upload Image</Typography>
-            {ingredients.length > 0 && (
+            {ingredients.length > 0 ? (
               <CheckCircleIcon
                 sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
               />
+            ) : (
+              loading && <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
             )}
             <Button
               variant="outlined"
@@ -566,13 +576,21 @@ function App() {
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
-            marginBottom: "20px",
+            marginBottom: "20px", // Add more margin between meals
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <Typography level="h2" sx={{ display: "inline-block" }}>
-              Meal Preparation
+            <Typography level="h2" sx={{ display: "inline-block", color: "black" }}>
+              Suggested Meals
             </Typography>
+            {meals.length > 0 ? (
+              <CheckCircleIcon
+                sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+              />
+            ) : (
+              ingredients.length > 0 && (
+              <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
+            ))}
             <Button
               variant="outlined"
               onClick={() => setIsMealPreparationOpen(!isMealPreparationOpen)}
@@ -586,27 +604,44 @@ function App() {
           {isMealPreparationOpen && meals.length > 0 && (
             <Box sx={{ mt: 4 }}>
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
-                {meals.map((meal, index) => (
-                  <li key={index} style={{ marginBottom: "20px" }}>
-                    {/* Meal Name */}
-                    <Typography variant="h5" mb={1} sx={{ color: "black" }}>
-                      <strong>Meal Name:</strong> {meal.name}
-                    </Typography>
+              {meals.map((meal, index) => (
+                <li 
+                  key={index} 
+                  style={{ 
+                    marginBottom: "40px", 
+                    padding: "20px", 
+                    border: "1px solid #ddd", // Add a border around each meal
+                    borderRadius: "8px"  // Optional: add rounded corners
+                  }}
+                >
+                  {/* Meal Name */}
+                  <Typography variant="h5" mb={1} sx={{ color: "black" }}>
+                    <strong>Meal Name:</strong> {meal.name}
+                  </Typography>
 
-                    {/* Ingredients List */}
-                    <Typography variant="body1" mb={1} sx={{ color: "black" }}>
-                      <strong>Ingredients:</strong>{" "}
-                      {Object.entries(meal.ingredients)
-                        .map(([key, value]) => `${key}: ${value}`)
-                        .join(", ")}
-                    </Typography>
+                  {/* Ingredients List */}
+                  <Typography variant="body1" mb={1} sx={{ color: "black" }}>
+                    <strong>Ingredients:</strong>
+                    <ul>
+                      {meal.ingredients.split("\n").map((ingredient, idx) => (
+                        <li key={idx} style={{ marginLeft: "20px" }}>{ingredient.replace("-", "").trim()}</li>
+                      ))}
+                    </ul>
+                  </Typography>
 
-                    {/* How to Prepare */}
-                    <Typography variant="body1" mb={2} sx={{ color: "black" }}>
-                      <strong>How to Prepare:</strong> {meal.howToPrepare}
-                    </Typography>
-                  </li>
-                ))}
+                  {/* How to Prepare */}
+                  <Typography variant="body1" mb={2} sx={{ color: "black" }}>
+                    <strong>How to Prepare:</strong>
+                    <ol>
+                      {meal.howToPrepare.split("\n").map((instruction, idx) => (
+                        <li key={idx} style={{ marginLeft: "20px", marginTop: "10px" }}>
+                          {instruction.replace(/^\d+\.\s*/, '')}
+                        </li>
+                      ))}
+                    </ol>
+                  </Typography>
+                </li>
+              ))}
               </ul>
             </Box>
           )}
@@ -626,7 +661,7 @@ function App() {
         >
 
 
-        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
+        <Box sx={{ width: "100%", maxWidth: "900px" }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <Typography level="h2" sx={{ display: "inline-block" }}>
                 Shopping List
