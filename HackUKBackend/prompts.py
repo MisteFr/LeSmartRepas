@@ -4,27 +4,23 @@ analyse_in_fridge = '''(
                             "an approximate quantity for each. For example, if there is a bottle of milk, specify whether it's "
                             "full, half-full, or nearly empty. Be as specific as possible about the types of ingredients "
                             "(e.g., cheddar cheese vs. generic cheese, green peppers vs. red peppers) and give approximate quantities"
-                            "Give the location of the answer as a 4 fig grid reference"
                             "where possible (e.g., '2 apples,' '1 half-full bottle of orange juice,' etc.). Answer with a json format following the following style"
                             """ for example: ----{
   "ingredients": [
     {
       "item": "Tomatoes",
-      "quantity": "6",
-      "location": 4536
+      "quantity": "6"
     },
     {
       "item": "Bell Peppers",
-      "quantity": "2",
-      "location": 3456
+      "quantity": "2"
 
     }...,----"""
                         )
                     '''
 
 generate_recipes = '''Given the list of items in a fridge suggest possible recipes that I can make
-                    Output each recipe with its name and ingredients in a dictionary
-                    give the respones in json e.g.:
+                    give the respones in the following json format:
                     {
                         "name": "Tomato Salad",
                         "ingredients": [

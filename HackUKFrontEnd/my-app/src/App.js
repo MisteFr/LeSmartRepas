@@ -25,6 +25,7 @@ function App() {
   const [restrictions, setRestrictions] = useState("");
   const [goalType, setGoalType] = useState("");
   const [goalDetails, setGoalDetails] = useState("");
+  const [meals, setMeals] = useState([]);
   const [image, setImage] = useState(null); // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
   const [ingredients, setIngredients] = useState([]); // State to store ingredients list
@@ -32,7 +33,7 @@ function App() {
   const [isNutritionalSetupOpen, setIsNutritionalSetupOpen] = useState(true); // Toggle for collapsible form
   const [isIngredientsListOpen, setIsIngredientsListOpen] = useState(true); // Toggle for collapsible form
   const [isUploadFileSetupOpen, setIsUploadFileSetupOpen] = useState(true); // Toggle for collapsible form
-  const [isMealPreparationOpen, setIsMealPreparationOpen] = useState(true); // Toggle for collapsible form
+  const [isMealPreparationOpen, setIsMealPreparationOpen] = useState(false); // Toggle for collapsible form
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(true); // Toggle for collapsible form
   const [isFilledFromStorage, setIsFilledFromStorage] = useState(false); // Track if data loaded from storage
   const socketRef = useRef();
@@ -146,6 +147,12 @@ function App() {
     }
     if (data.calories) {
       setCalories(data.calories);
+    }
+    if(data.recipes) {
+      console.log(data.recipes)
+
+      setMeals(data.recipes); // Save the recipes to the new state variable
+      setIsMealPreparationOpen(true); // Automatically open the meal section
     }
   });
 
@@ -551,6 +558,7 @@ function App() {
           </Box>
           </Box>
 
+        {/* Meal Preparation Section */}
         <Box
           sx={{
             width: "100%",
@@ -558,34 +566,52 @@ function App() {
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
-            marginBottom: "20px"
+            marginBottom: "20px",
           }}
         >
-
-
-        <Box sx={{ width: "100%", maxWidth: "900px", marginBottom: "20px" }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              <Typography level="h2" sx={{ display: "inline-block" }}>
-                Meal Preparation
-              </Typography>
-              {/* {isFilledFromStorage && (
-                <CheckCircleIcon
-                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
-                />
-              )} */}
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  setIsMealPreparationOpen(!isMealPreparationOpen)
-                }
-                sx={{ textTransform: "none", marginLeft: "auto" }}
-              >
-                {isMealPreparationOpen ? "Collapse" : "Open"}
-              </Button>
-            </Box>
-
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Typography level="h2" sx={{ display: "inline-block" }}>
+              Meal Preparation
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => setIsMealPreparationOpen(!isMealPreparationOpen)}
+              sx={{ textTransform: "none", marginLeft: "auto" }}
+            >
+              {isMealPreparationOpen ? "Collapse" : "Open"}
+            </Button>
           </Box>
+
+          {/* Meal List */}
+          {isMealPreparationOpen && meals.length > 0 && (
+            <Box sx={{ mt: 4 }}>
+              <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+                {meals.map((meal, index) => (
+                  <li key={index} style={{ marginBottom: "20px" }}>
+                    {/* Meal Name */}
+                    <Typography variant="h5" mb={1} sx={{ color: "black" }}>
+                      <strong>Meal Name:</strong> {meal.name}
+                    </Typography>
+
+                    {/* Ingredients List */}
+                    <Typography variant="body1" mb={1} sx={{ color: "black" }}>
+                      <strong>Ingredients:</strong>{" "}
+                      {Object.entries(meal.ingredients)
+                        .map(([key, value]) => `${key}: ${value}`)
+                        .join(", ")}
+                    </Typography>
+
+                    {/* How to Prepare */}
+                    <Typography variant="body1" mb={2} sx={{ color: "black" }}>
+                      <strong>How to Prepare:</strong> {meal.howToPrepare}
+                    </Typography>
+                  </li>
+                ))}
+              </ul>
+            </Box>
+          )}
+        </Box>
+
 
 
           <Box

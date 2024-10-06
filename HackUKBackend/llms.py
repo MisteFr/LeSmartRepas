@@ -19,7 +19,7 @@ def mistral(image, client, model, text, personal_details = None):
     if personal_details != None:
         messages["content"].append({
                         "type": "text",
-                        "text": ("take into consideration these requirements when creating the prompt: --" + str(personal_details) + "--")
+                        "text": ("Take into consideration these requirements when answering the question: --" + str(personal_details) + "--")
                     })
     
     #Add text
