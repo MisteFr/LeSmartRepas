@@ -1,6 +1,96 @@
-[
-    {
-        "item": "Chicken",
-        "quantity": "1 piece"
-    }
-]
+{
+    "ingredients": [
+        {
+            "item": "Milk",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Ketchup",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "Nearly full jar"
+        },
+        {
+            "item": "Mustard",
+            "quantity": "Full jar"
+        },
+        {
+            "item": "Olive Oil",
+            "quantity": "Half-full bottle"
+        },
+        {
+            "item": "Vinegar",
+            "quantity": "Full bottle"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "Large head"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "Small bunch"
+        },
+        {
+            "item": "Apples",
+            "quantity": "4"
+        },
+        {
+            "item": "Tomatoes",
+            "quantity": "6"
+        },
+        {
+            "item": "Onions",
+            "quantity": "3"
+        },
+        {
+            "item": "Peppers",
+            "quantity": "2"
+        },
+        {
+            "item": "Avocados",
+            "quantity": "2"
+        },
+        {
+            "item": "Bread",
+            "quantity": "Half loaf"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "Small piece"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "2 small containers"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "Dozen"
+        },
+        {
+            "item": "Butter",
+            "quantity": "Small stick"
+        },
+        {
+            "item": "Grapes",
+            "quantity": "Small bunch"
+        },
+        {
+            "item": "Baking Soda",
+            "quantity": "Small box"
+        },
+        {
+            "item": "Beer",
+            "quantity": "4 bottles"
+        },
+        {
+            "item": "Wine",
+            "quantity": "1 bottle"
+        },
+        {
+            "item": "Sprinkles",
+            "quantity": "Small jar"
+        }
+    ]
+}

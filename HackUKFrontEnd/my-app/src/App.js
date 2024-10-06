@@ -26,6 +26,7 @@ function App() {
   const [goalType, setGoalType] = useState("");
   const [goalDetails, setGoalDetails] = useState("");
   const [meals, setMeals] = useState([]);
+  const [shoppingList, setShoppingList] = useState([]);
   const [image, setImage] = useState(null); // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
   const [ingredients, setIngredients] = useState([]); // State to store ingredients list
@@ -74,6 +75,7 @@ function App() {
       setIngredients(storedIngredients);
       setIsUploadFileSetupOpen(false);
       socketRef.current.emit("request_recipes");
+      socketRef.current.emit("get_shopping");
     }
   }, []);
 
@@ -158,6 +160,15 @@ function App() {
     if(data.recipes) {
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
+    }
+    if(data.messageRecipes){
+      const message = data.messageRecipes;
+      setMeals([{ message }]);  // Store the message in an array to treat it as a "meal"
+      setIsMealPreparationOpen(true);
+    }
+    if(data.shopping){
+      console.log(data.shopping)
+      setShoppingList(data.shopping)
     }
   });
 
@@ -614,6 +625,13 @@ function App() {
                     borderRadius: "8px"  // Optional: add rounded corners
                   }}
                 >
+
+              {meal.message ? (
+                    <Typography variant="h6" sx={{ color: "black" }}>
+                      {meal.message}
+                    </Typography>
+                  ) : (
+                    <>
                   {/* Meal Name */}
                   <Typography variant="h5" mb={1} sx={{ color: "black" }}>
                     <strong>Meal Name:</strong> {meal.name}
@@ -640,6 +658,8 @@ function App() {
                       ))}
                     </ol>
                   </Typography>
+                  </>
+                )}
                 </li>
               ))}
               </ul>
@@ -649,41 +669,61 @@ function App() {
 
 
 
-          <Box
+        {/* Shopping List Section */}
+        <Box
           sx={{
             width: "100%",
             maxWidth: "900px",
             border: "1px solid #ccc",
             borderRadius: "10px",
             padding: "20px",
-            marginBottom: "20px"
+            marginBottom: "20px", // Add more margin between shopping list items
           }}
         >
-
-
-        <Box sx={{ width: "100%", maxWidth: "900px" }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              <Typography level="h2" sx={{ display: "inline-block" }}>
-                Shopping List
-              </Typography>
-              {/* {isFilledFromStorage && (
-                <CheckCircleIcon
-                  sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
-                />
-              )} */}
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  setIsShoppingListOpen(!isShoppingListOpen)
-                }
-                sx={{ textTransform: "none", marginLeft: "auto" }}
-              >
-                {isShoppingListOpen ? "Collapse" : "Open"}
-              </Button>
-            </Box>
-
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Typography level="h2" sx={{ display: "inline-block", color: "black" }}>
+              Shopping List
+            </Typography>
+            {shoppingList.length > 0 ? (
+              <CheckCircleIcon
+                sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
+              />
+            ) : (
+              ingredients.length > 0 && (
+              <CircularProgress size="sm" sx={{ ml: 1, verticalAlign: "middle" }} />
+            ))}
+            <Button
+              variant="outlined"
+              onClick={() => setIsShoppingListOpen(!isShoppingListOpen)}
+              sx={{ textTransform: "none", marginLeft: "auto" }}
+            >
+              {isShoppingListOpen ? "Collapse" : "Open"}
+            </Button>
           </Box>
+
+          {/* Shopping List */}
+          {isShoppingListOpen && shoppingList.length > 0 && (
+            <Box sx={{ mt: 2 }}> {/* Reduced margin-top */}
+              <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
+                {shoppingList.map((item, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      marginBottom: "10px", // Reduced margin between items
+                      padding: "8px", // Reduced padding for each item
+                      border: "1px solid #ddd",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Typography variant="h6" mb={1} sx={{ color: "black", fontSize: "1rem" }}> {/* Smaller font size */}
+                      <strong>{item.name}</strong> - {item.Reason}
+                    </Typography>
+                  </li>
+                ))}
+              </ul>
+            </Box>
+          )}
+        </Box>
         
       </Container>
     </CssVarsProvider>

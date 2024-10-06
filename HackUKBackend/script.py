@@ -15,6 +15,7 @@ import time
 
 
 last_generate_meals_call = 0
+last_get_shopping_call = 0
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -79,7 +80,13 @@ def generate_meals():
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
     
-    print(recipes)
+    # if recipes doesn't contain json, we just want the emit the whole message
+    # it means something went wrong
+    # Check if the response contains JSON. If not, emit the raw message.
+    if "```json" not in recipes:
+        print("No JSON found in response. Emitting full message.")
+        emit("response", {"messageRecipes": recipes})
+        return
     
     cleaned_data = recipes.strip().split("```json")[1].split("```")[0]
 
@@ -92,16 +99,35 @@ def generate_meals():
         print(f"Error parsing JSON: {e}")
 
 @socketio.on("get_shopping")
-def handle_get_shopping(data):
+def handle_get_shopping():
+    
+    global last_get_shopping_call
+    
+    current_time = time.time()
+    # Check if the function was called less than 2 seconds ago
+    if current_time - last_get_shopping_call < 2:
+        print("get_shopping called too recently. Skipping execution.")
+        return
+    
+    print("get_shopping")
+    
+    
     ingredientsJson = get_data()
     user_data = get_data("user_data.json")
 
     model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
     shopping = get_shopping(ingredientsJson, client, model, user_data)
+    
+    cleaned_data = shopping.split("```json")[1].split("```")[0]
 
-    print(shopping)
-    emit("response", {"shopping": shopping})
+    # Parse the cleaned string as JSON
+    try:
+        shopping = json.loads(cleaned_data)
+        emit("response", {"shopping": shopping})
+
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON for shopping: {e}")
     
     
 @socketio.on("request_recipes")
