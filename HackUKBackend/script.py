@@ -110,6 +110,7 @@ def handle_get_shopping():
         return
     
     print("get_shopping")
+    last_get_shopping_call = current_time
     
     
     ingredientsJson = get_data()

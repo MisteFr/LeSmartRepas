@@ -75,7 +75,6 @@ function App() {
       setIngredients(storedIngredients);
       setIsUploadFileSetupOpen(false);
       socketRef.current.emit("request_recipes");
-      socketRef.current.emit("get_shopping");
     }
   }, []);
 
@@ -160,6 +159,7 @@ function App() {
     if(data.recipes) {
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
+      socketRef.current.emit("get_shopping");
     }
     if(data.messageRecipes){
       const message = data.messageRecipes;
@@ -167,7 +167,6 @@ function App() {
       setIsMealPreparationOpen(true);
     }
     if(data.shopping){
-      console.log(data.shopping)
       setShoppingList(data.shopping)
     }
   });
