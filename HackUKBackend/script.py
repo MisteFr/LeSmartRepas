@@ -49,6 +49,8 @@ def handle_image_submission(data):
     ingredientsJson = get_data()
     calories = count_calories(client, model, "ingredients.json")
 
+    handle_get_shopping(None)
+
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
 
@@ -56,7 +58,7 @@ def generate_meals():
     ingredientsJson = get_data()
     user_data = get_data("user_data.json")
 
-    model = "pixtral-12b-2409"
+    model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
     
@@ -77,11 +79,12 @@ def handle_get_shopping(data):
     ingredientsJson = get_data()
     user_data = get_data("user_data.json")
 
-    model = "pixtral-12b-2409"
+    model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
-    recipes = get_shopping(ingredientsJson, client, model, user_data)
+    shopping = get_shopping(ingredientsJson, client, model, user_data)
 
-    emit("response", {"recipes": recipes})
+    print(shopping)
+    emit("response", {"shopping": shopping})
 
 @socketio.on("save_ingredients")
 def handle_save_ingredients(data):
@@ -116,3 +119,4 @@ def handle_submit_user_data(data):
 # Example usage to run the Flask app
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=5001)
+
