@@ -44,3 +44,9 @@ generate_recipes = '''Given the list of items in a fridge suggest possible recip
                     }
                     
                     ingredients:'''
+
+generate_shopping = '''Given the list of ingredients and the personal preferences create a list of items not in the fridge that are needed to provide the required personal preferences
+                    Use the "preferences", "restrictions", "goalType", "goalDetails" to decide what is needed to add to the list of ingredients to acheive his goaals/requirements
+                    create a shopping list
+                    respond as json
+                    ingredients:'''

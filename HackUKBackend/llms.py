@@ -19,7 +19,7 @@ def mistral(image, client, model, text, personal_details = None):
     if personal_details != None:
         messages["content"].append({
                         "type": "text",
-                        "text": ("take into consideration these requirements when creating the prompt: --", str(personal_details) + "--")
+                        "text": ("take into consideration these requirements when creating the prompt: --" + str(personal_details) + "--")
                     })
     
     #Add text
@@ -38,6 +38,8 @@ def mistral(image, client, model, text, personal_details = None):
                         "type": "image_url",
                         "image_url": f"data:image/jpeg;base64,{image_base64}"
                     })
+        
+    print(messages)
         
     # Prepare the request payload
     chat_response = client.chat.complete(
