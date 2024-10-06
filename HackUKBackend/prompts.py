@@ -1,5 +1,5 @@
 analyse_in_fridge = '''(
-                            "Please analyze this image of the inside of a fridge. I would like a detailed list "
+                            "Please analyze these images of the inside of a fridge. I would like a detailed list "
                             "of all identifiable ingredients, including food items, condiments, and beverages, as well as "
                             "an approximate quantity for each. For example, if there is a bottle of milk, specify whether it's "
                             "full, half-full, or nearly empty. Be as specific as possible about the types of ingredients "

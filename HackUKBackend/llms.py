@@ -10,7 +10,7 @@ import json
 from utils import encode_image_base64
 
 # Function to call Mistral API for image analysis
-def mistral(image, client, model, text, personal_details = None):
+def mistral(images, client, model, text, personal_details = None):
     messages = {"role": "user",
                 "content": []}
         
@@ -29,15 +29,15 @@ def mistral(image, client, model, text, personal_details = None):
                         "text": (text)
                     })
     
-    #Add image    
-    if image != None:
+    #Add image  
+    if images != None:
         # Convert the image to base64 string
-        image_base64 = encode_image_base64(image)
-
-        messages["content"].append({
-                        "type": "image_url",
-                        "image_url": f"data:image/jpeg;base64,{image_base64}"
-                    })
+        for image in images:
+            image_base64 = encode_image_base64(image)
+            messages["content"].append({
+                            "type": "image_url",
+                            "image_url": f"data:image/jpeg;base64,{image_base64}"
+                        })
         
     print(messages)
         

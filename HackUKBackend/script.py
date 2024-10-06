@@ -49,8 +49,6 @@ def handle_image_submission(data):
     ingredientsJson = get_data()
     calories = count_calories(client, model, "ingredients.json")
 
-    handle_get_shopping(None)
-
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
 
