@@ -79,3 +79,15 @@ def count_calories(client, model, ingredients_file_path: str):
     calorie_count = 5 * len(ingredients_str)  # chat_response.choices[0].message.content
 
     return calorie_count
+
+def get_ingredients(file_path='ingredients.json'):
+    try:
+        with open(file_path, 'r') as file:
+            ingredients = json.load(file)
+            return ingredients
+    except FileNotFoundError:
+        print(f"The file {file_path} does not exist.")
+        return None
+    except json.JSONDecodeError:
+        print(f"The file {file_path} does not contain valid JSON.")
+        return None

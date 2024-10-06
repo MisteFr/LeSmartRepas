@@ -6,8 +6,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
-from utils import count_calories, decode_image_base64, encode_image_base64, save_ingredients_as_json
-from inventory import get_ingredients, update_ingredients
+from utils import count_calories, decode_image_base64, encode_image_base64, save_ingredients_as_json, get_ingredients
+from inventory import update_ingredients
 import json
 from recipes import get_possible_recipes
 from shopping import get_shopping
@@ -15,6 +15,10 @@ from shopping import get_shopping
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
+
+api_key = (
+        "D8aO43UD7KPqIHnZiKjqJIJYGcBk4zdp"  # Replace with your actual Mistral API key
+    )
 
 
 @socketio.on("submit_image")
@@ -34,9 +38,7 @@ def handle_image_submission(data):
     image = decode_image_base64(image_base64)
 
     # Initialize Mistral API client
-    api_key = (
-        "D8aO43UD7KPqIHnZiKjqJIJYGcBk4zdp"  # Replace with your actual Mistral API key
-    )
+    
     model = "pixtral-12b-2409"
     client = Mistral(api_key=api_key)
 
@@ -53,14 +55,22 @@ def handle_image_submission(data):
 @socketio.on("get_meals")
 def handle_get_meals(data):
     ingredientsJson = get_ingredients()
-    recipes = get_possible_recipes(ingredientsJson)
+    user_data = get_ingredients("user_data.json")
+
+    model = "pixtral-12b-2409"
+    client = Mistral(api_key=api_key)
+    recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
 
     emit("response", {"recipes": recipes})
 
 @socketio.on("get_shopping")
 def handle_get_shopping(data):
     ingredientsJson = get_ingredients()
-    recipes = get_shopping(ingredientsJson)
+    user_data = get_ingredients("user_data.json")
+
+    model = "pixtral-12b-2409"
+    client = Mistral(api_key=api_key)
+    recipes = get_shopping(ingredientsJson, client, model, user_data)
 
     emit("response", {"recipes": recipes})
 
