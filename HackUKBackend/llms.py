@@ -13,6 +13,14 @@ from utils import encode_image_base64
 def mistral(image, client, model, text, personal_details = None):
     messages = {"role": "user",
                 "content": []}
+        
+
+    #Add personal details
+    if personal_details != None:
+        messages["content"].append({
+                        "type": "text",
+                        "text": ("take into consideration these requirements when creating the prompt: --", str(personal_details) + "--")
+                    })
     
     #Add text
     if text != None:
@@ -29,14 +37,6 @@ def mistral(image, client, model, text, personal_details = None):
         messages["content"].append({
                         "type": "image_url",
                         "image_url": f"data:image/jpeg;base64,{image_base64}"
-                    })
-        
-
-    #Add personal details
-    if personal_details != None:
-        messages["content"].append({
-                        "type": "text",
-                        "text": (personal_details)
                     })
         
     # Prepare the request payload
