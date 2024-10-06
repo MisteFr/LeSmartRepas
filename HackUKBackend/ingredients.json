@@ -1,6 +1,60 @@
-[
-    {
-        "item": "Chicken",
-        "quantity": "1 (small packet)"
-    }
-]
+{
+    "ingredients": [
+        {
+            "item": "Tomato Ketchup",
+            "quantity": "2 full bottles"
+        },
+        {
+            "item": "Mayonnaise",
+            "quantity": "1 full bottle"
+        },
+        {
+            "item": "Beer",
+            "quantity": "4 bottles"
+        },
+        {
+            "item": "Wine",
+            "quantity": "5 bottles"
+        },
+        {
+            "item": "Lettuce",
+            "quantity": "1 head"
+        },
+        {
+            "item": "Carrots",
+            "quantity": "4"
+        },
+        {
+            "item": "Apples",
+            "quantity": "3"
+        },
+        {
+            "item": "Bananas",
+            "quantity": "2"
+        },
+        {
+            "item": "Peaches",
+            "quantity": "6"
+        },
+        {
+            "item": "Milk",
+            "quantity": "1 half-full carton"
+        },
+        {
+            "item": "Orange Juice",
+            "quantity": "1 nearly empty bottle"
+        },
+        {
+            "item": "Yogurt",
+            "quantity": "1 full container"
+        },
+        {
+            "item": "Cheese",
+            "quantity": "1 partial packet"
+        },
+        {
+            "item": "Eggs",
+            "quantity": "6"
+        }
+    ]
+}

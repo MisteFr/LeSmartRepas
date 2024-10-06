@@ -168,6 +168,7 @@ function App() {
     }
     if(data.shopping){
       setShoppingList(data.shopping)
+      setIsShoppingListOpen(true)
     }
   });
 

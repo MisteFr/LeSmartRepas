@@ -161,7 +161,7 @@ def handle_submit_user_data(data):
             json.dump(user_data, json_file, indent=4)
             print(f"pref saved to user_data.json")
             
-        generate_meals()
+        #generate_meals()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")

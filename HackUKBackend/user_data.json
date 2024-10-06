@@ -1,9 +1,8 @@
 {
     "preferences": [
-        "vegetarian",
         "highProtein"
     ],
-    "restrictions": "No cheese.",
+    "restrictions": "no cheese",
     "goalType": "macro-balance",
-    "goalDetails": "I want to gain weight."
+    "goalDetails": "Gain Weight"
 }
