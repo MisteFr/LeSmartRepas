@@ -100,7 +100,6 @@ def generate_meals():
 
 @socketio.on("get_shopping")
 def handle_get_shopping():
-    
     global last_get_shopping_call
     
     current_time = time.time()
