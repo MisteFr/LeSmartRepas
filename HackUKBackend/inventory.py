@@ -13,7 +13,6 @@ from prompts import analyse_in_fridge
 def update_ingredients(image, client, model):
     # Analyze the image and get the ingredients list
     ingredients = mistral(image, client, model, analyse_in_fridge)
-    
     # Save the ingredients as JSON locally
     ingredientsJson = save_ingredients_as_json(ingredients, file_name="ingredients.json")
 
