@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
-from utils import count_calories, decode_image_base64, encode_image_base64, save_ingredients_as_json, get_ingredients
+from utils import count_calories, decode_image_base64, encode_image_base64, save_ingredients_as_json, get_data
 from inventory import update_ingredients
 import json
 from recipes import get_possible_recipes
@@ -46,16 +46,15 @@ def handle_image_submission(data):
     update_ingredients(image, client, model)
 
     # Save the ingredients as JSON locally
-    ingredientsJson = get_ingredients()
+    ingredientsJson = get_data()
     calories = count_calories(client, model, "ingredients.json")
 
     # Emit the ingredients list back to the client
     emit("response", {"ingredients": ingredientsJson, "calories": calories})
 
-@socketio.on("get_meals")
-def handle_get_meals(data):
-    ingredientsJson = get_ingredients()
-    user_data = get_ingredients("user_data.json")
+def generate_meals():
+    ingredientsJson = get_data()
+    user_data = get_data("user_data.json")
 
     model = "pixtral-12b-2409"
     client = Mistral(api_key=api_key)
@@ -65,8 +64,8 @@ def handle_get_meals(data):
 
 @socketio.on("get_shopping")
 def handle_get_shopping(data):
-    ingredientsJson = get_ingredients()
-    user_data = get_ingredients("user_data.json")
+    ingredientsJson = get_data()
+    user_data = get_data("user_data.json")
 
     model = "pixtral-12b-2409"
     client = Mistral(api_key=api_key)
@@ -76,15 +75,14 @@ def handle_get_shopping(data):
 
 @socketio.on("save_ingredients")
 def handle_save_ingredients(data):
-    print("hre 1")
-    print(data)
-    
     try:
         ingredients_data = json.loads(data)
 
         with open("ingredients.json", "w") as json_file:
             json.dump(ingredients_data, json_file, indent=4)
             print(f"Ingredients saved to ingredients.json")
+            
+            generate_meals()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
@@ -98,9 +96,12 @@ def handle_submit_user_data(data):
         with open("user_data.json", "w") as json_file:
             json.dump(user_data, json_file, indent=4)
             print(f"pref saved to user_data.json")
+            
+            generate_meals()
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
+    
 
 # Example usage to run the Flask app
 if __name__ == "__main__":

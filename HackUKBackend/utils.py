@@ -80,7 +80,7 @@ def count_calories(client, model, ingredients_file_path: str):
 
     return calorie_count
 
-def get_ingredients(file_path='ingredients.json'):
+def get_data(file_path='ingredients.json'):
     try:
         with open(file_path, 'r') as file:
             ingredients = json.load(file)

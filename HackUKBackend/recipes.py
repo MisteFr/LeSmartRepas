@@ -10,7 +10,7 @@ from utils import decode_image_base64, encode_image_base64, save_ingredients_as_
 from llms import mistral
 from prompts import generate_recipes
 
-def get_shopping(ingredients, client, model, personal_details =None):
+def get_possible_recipes(ingredients, client, model, personal_details =None):
     # Analyze the image and get the ingredients list
     recipes = mistral(None, client, model, generate_recipes + str(ingredients), personal_details = personal_details)
 
