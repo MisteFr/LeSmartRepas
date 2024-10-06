@@ -174,6 +174,8 @@ function App() {
   const handleSaveChanges = () => {
     localStorage.setItem("ingredientsList", JSON.stringify(ingredients));
     console.log("Updated Ingredients:", ingredients);
+    // Send data to the backend
+    socketRef.current.emit("submit_user_data", JSON.stringify(ingredients));
   };
 
   return (
@@ -436,7 +438,7 @@ function App() {
               <Typography level="h2" sx={{ display: "inline-block" }}>
                 Ingredients List
               </Typography>
-              {isFilledFromStorage && (
+              {ingredients.length > 0 && (
                 <CheckCircleIcon
                   sx={{ color: "green", ml: 1, verticalAlign: "middle" }}
                 />
@@ -467,9 +469,9 @@ function App() {
                     <th style={{ border: "1px solid #ccc", padding: "8px" }}>
                       Quantity
                     </th>
-                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>
+                    {/* <th style={{ border: "1px solid #ccc", padding: "8px" }}>
                       Location
-                    </th>
+                    </th> */}
                     <th style={{ border: "1px solid #ccc", padding: "8px" }}>
                       Actions
                     </th>
@@ -496,7 +498,7 @@ function App() {
                           sx={{ width: "100%" }}
                         />
                       </td>
-                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>
+                      {/* <td style={{ border: "1px solid #ccc", padding: "8px" }}>
                         <Input
                           value={ingredient.location}
                           onChange={(e) =>
@@ -504,8 +506,8 @@ function App() {
                           }
                           sx={{ width: "100%" }}
                         />
-                      </td>
-                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>
+                      </td> */}
+                      <td style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center", verticalAlign: "middle" }}>
                         <Button
                           variant="solid"
                           color="danger"
