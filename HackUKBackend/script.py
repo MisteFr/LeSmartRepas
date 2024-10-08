@@ -12,6 +12,7 @@ import json
 from recipes import get_possible_recipes
 from shopping import get_shopping
 import time
+import os
 
 
 last_generate_meals_call = 0
@@ -21,9 +22,9 @@ app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
 
-api_key = (
-        "D8aO43UD7KPqIHnZiKjqJIJYGcBk4zdp"  # Replace with your actual Mistral API key
-    )
+api_key = os.getenv("MISTRAL_API_KEY")
+if not api_key:
+    raise ValueError("Mistral API key is not set. Please set it in the environment.")
 
 
 @socketio.on("submit_image")
@@ -182,5 +183,5 @@ def handle_request_recipes(data):
 
 # Example usage to run the Flask app
 if __name__ == "__main__":
-    socketio.run(app, debug=True, port=5001)
+    socketio.run(app, debug=False, port=5001)
 

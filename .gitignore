@@ -3,7 +3,7 @@
 .env
 plucky-environs-437715-i8-65543558c67b.json
 HackUKFrontEnd/my-app/node_modules/
-HackUKFrontEnd/my-app/node_modules
+HackUKFrontEnd/my-app/build/
 HackUKFrontEnd/my-app/node_modules/.bin/browserslist
 # Ignore the entire node_modules directory
 # Ignore node_modules directory
@@ -25,3 +25,6 @@ HackUKBackend/__pycache__/utils.cpython-312.pyc
 HackUKBackend/__pycache__/llms.cpython-312.pyc
 HackUKBackend/__pycache__/recipes.cpython-312.pyc
 HackUKBackend/__pycache__/shopping.cpython-312.pyc
+
+
+

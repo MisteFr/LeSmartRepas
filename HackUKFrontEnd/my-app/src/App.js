@@ -40,7 +40,7 @@ function App() {
 
   // Initialize WebSocket connection to the backend
   if (!socketRef.current) {
-    socketRef.current = io("http://localhost:5001", {
+    socketRef.current = io("http://194.9.172.109:5001", {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
