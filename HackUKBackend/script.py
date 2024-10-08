@@ -34,9 +34,19 @@ def handle_image_submission(data):
     image_base64 = data.get(
         "image"
     )  # Get the base64 image data from the WebSocket message
+    
+    preferences = data.get(
+        "pref"
+    )
+    
+    print(data.get(("pref")))
 
     if not image_base64:
         emit("response", {"error": "No image data provided"})
+        return
+    
+    if not preferences:
+        emit("response", {"error": "No preferences provided"})
         return
 
     # Decode the base64 image into a PIL Image
@@ -48,18 +58,24 @@ def handle_image_submission(data):
     client = Mistral(api_key=api_key)
 
     # Analyze the image and get the ingredients list
-    update_ingredients(image, client, model)
-
-    # Save the ingredients as JSON locally
-    ingredientsJson = get_data()
-    calories = count_calories(client, model, "ingredients.json")
+    ingredients_list = update_ingredients(image, client, model)
     
-    # Emit the ingredients list back to the client
-    emit("response", {"ingredients": ingredientsJson, "calories": calories})
-    
-    generate_meals()
+    cleaned_data = ingredients_list.strip().strip("```json").strip("```").strip()
 
-def generate_meals():
+    # Parse the cleaned string as JSON
+    try:
+        ingredientsJson = json.loads(cleaned_data)
+        
+        # Emit the ingredients list back to the client
+        emit("response", {"ingredients": ingredientsJson})
+        
+        generate_meals(ingredientsJson, preferences)
+        
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}")
+        return None
+
+def generate_meals(ingredientsAsJson, userPreferences):
     global last_generate_meals_call
     
     current_time = time.time()
@@ -72,10 +88,9 @@ def generate_meals():
     # Update the last call timestamp
     last_generate_meals_call = current_time
     
-    ingredientsJson = get_data()
-    user_data = get_data("user_data.json")
+    ingredientsJson = ingredientsAsJson
+    user_data = userPreferences
 
-    model = "mistral-large-latest"
     model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
     recipes = get_possible_recipes(ingredientsJson, client, model, user_data)
@@ -86,7 +101,7 @@ def generate_meals():
     if "```json" not in recipes:
         print("No JSON found in response. Emitting full message.")
         emit("response", {"messageRecipes": recipes})
-        handle_get_shopping()
+        handle_get_shopping(ingredientsAsJson, userPreferences)
         return
     
     cleaned_data = recipes.strip().split("```json")[1].split("```")[0]
@@ -96,13 +111,13 @@ def generate_meals():
         recipes_data = json.loads(cleaned_data)
         emit("response", {"recipes": recipes_data})
         
-        handle_get_shopping()
+        handle_get_shopping(ingredientsAsJson, userPreferences)
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
 
 @socketio.on("get_shopping")
-def handle_get_shopping():
+def handle_get_shopping(ingredientsAsJson, userPreferences):
     global last_get_shopping_call
     
     current_time = time.time()
@@ -115,8 +130,8 @@ def handle_get_shopping():
     last_get_shopping_call = current_time
     
     
-    ingredientsJson = get_data()
-    user_data = get_data("user_data.json")
+    ingredientsJson = ingredientsAsJson
+    user_data = userPreferences
 
     model = "mistral-large-latest"
     client = Mistral(api_key=api_key)
@@ -131,40 +146,38 @@ def handle_get_shopping():
 
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON for shopping: {e}")
-    
-    
+        
 @socketio.on("request_recipes")
-def handle_request_recipes():
-    generate_meals()
+def handle_request_recipes(data):
+    ingredients = data.get(
+            "ingredients"
+        ) 
+        
+    preferences = data.get(
+        "pref"
+    )
 
-@socketio.on("save_ingredients")
-def handle_save_ingredients(data):
-    try:
-        ingredients_data = json.loads(data)
-
-        with open("ingredients.json", "w") as json_file:
-            json.dump(ingredients_data, json_file, indent=4)
-            print(f"Ingredients saved to ingredients.json")
-            
-        generate_meals()
-
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON: {e}")
+    if not ingredients:
+        emit("response", {"error": "No ingredients data provided"})
+        return
     
-
-@socketio.on("submit_user_data")
-def handle_submit_user_data(data):    
+    if not preferences:
+        emit("response", {"error": "No preferences provided"})
+        return
+        
+    print(data.get(("pref")))
+    
     try:
-        user_data = data
-
-        with open("user_data.json", "w") as json_file:
-            json.dump(user_data, json_file, indent=4)
-            print(f"pref saved to user_data.json")
+    
+        ingredients_data = json.loads(data.get(("ingredients")))
+        prefData = json.loads(data.get(("pref")))
+        
             
-        #generate_meals()
-
+        generate_meals(ingredients_data, prefData)
+        
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
+
     
 
 # Example usage to run the Flask app

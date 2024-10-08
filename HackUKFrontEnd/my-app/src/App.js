@@ -30,7 +30,6 @@ function App() {
   const [image, setImage] = useState(null); // State to store uploaded image
   const [loading, setLoading] = useState(false); // State to show loading while processing
   const [ingredients, setIngredients] = useState([]); // State to store ingredients list
-  const [calories, setCalories] = useState(null); // New state for calories
   const [isNutritionalSetupOpen, setIsNutritionalSetupOpen] = useState(true); // Toggle for collapsible form
   const [isIngredientsListOpen, setIsIngredientsListOpen] = useState(true); // Toggle for collapsible form
   const [isUploadFileSetupOpen, setIsUploadFileSetupOpen] = useState(true); // Toggle for collapsible form
@@ -74,9 +73,10 @@ function App() {
     if (storedIngredients && storedIngredients.length > 0) {
       setIngredients(storedIngredients);
       setIsUploadFileSetupOpen(false);
-      socketRef.current.emit("request_recipes");
+      socketRef.current.emit("request_recipes", {ingredients: JSON.stringify(storedIngredients), pref:  sessionStorage.getItem("nutritionalSetup")});
     }
   }, []);
+
 
   // Clear the ingredients list both from state and localStorage
   const handleClearIngredients = () => {
@@ -103,7 +103,7 @@ function App() {
     sessionStorage.setItem("nutritionalSetup", JSON.stringify(userData));
 
     // Send data to the backend
-    socketRef.current.emit("submit_user_data", userData);
+    //socketRef.current.emit("submit_user_data", userData);
 
     // Collapse form if filled in
     setIsNutritionalSetupOpen(false);
@@ -126,7 +126,7 @@ function App() {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Image = reader.result.split(",")[1]; // Only send the base64 part
-        socketRef.current.emit("submit_image", { image: base64Image });
+        socketRef.current.emit("submit_image", { image: base64Image, pref: sessionStorage.getItem("nutritionalSetup") });
       };
       reader.readAsDataURL(image);
     }
@@ -138,6 +138,12 @@ function App() {
     if (file) {
       setImage(file);
     }
+
+    handleClearIngredients()
+    setMeals([])
+    setIsMealPreparationOpen(false);
+    setShoppingList([])
+    setIsShoppingListOpen(false)
   };
 
   // Handle response from backend, append new ingredients to the list
@@ -153,13 +159,9 @@ function App() {
       setMeals([])
       setIsMealPreparationOpen(false);
     }
-    if (data.calories) {
-      setCalories(data.calories);
-    }
     if(data.recipes) {
       setMeals(data.recipes); // Save the recipes to the new state variable
       setIsMealPreparationOpen(true); // Automatically open the meal section
-      //socketRef.current.emit("get_shopping");
     }
     if(data.messageRecipes){
       const message = data.messageRecipes;
@@ -198,7 +200,7 @@ function App() {
     localStorage.setItem("ingredientsList", JSON.stringify(ingredients));
     console.log("Updated Ingredients:", ingredients);
     // Send data to the backend
-    socketRef.current.emit("save_ingredients", JSON.stringify(ingredients));
+    socketRef.current.emit("request_recipes", {ingredients: JSON.stringify(ingredients), pref:  sessionStorage.getItem("nutritionalSetup")});
     setIsIngredientsListOpen(false)
     setMeals([])
     setIsMealPreparationOpen(false);
@@ -410,7 +412,7 @@ function App() {
             )}
             <Button
               variant="outlined"
-              onClick={() => setIsUploadFileSetupOpen(!isUploadFileSetupOpen)}
+              onClick={() => setIsUploadFileSetupOpen(!isUploadFileSetupOpen) && handleClearIngredients()}
               sx={{ textTransform: "none", marginLeft: "auto" }}
             >
               {isUploadFileSetupOpen ? "Collapse" : "Edit"}
@@ -705,7 +707,7 @@ function App() {
         >
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Typography level="h2" sx={{ display: "inline-block", color: "black" }}>
-              Shopping List
+              Shopping List Suggestion
             </Typography>
             {shoppingList.length > 0 ? (
               <CheckCircleIcon

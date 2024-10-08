@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 from PIL import Image
+from utils import encode_image_base64
 
 def segmentN(pil_image, output_folder='segments', num_top_components=7):
     """
@@ -55,9 +56,6 @@ def segmentN(pil_image, output_folder='segments', num_top_components=7):
     # Use the inverted mask to remove the top components from the **original** image (unthresholded)
     image_without_top_components = cv2.bitwise_and(image, image, mask=inverse_mask)
 
-    # Save the image with the top components removed (optional)
-    cv2.imwrite(os.path.join(output_folder, 'image_without_top_components.jpg'), image_without_top_components)
-
     # Initialize a list to store the cropped components
     result_images = []
 
@@ -81,18 +79,16 @@ def segmentN(pil_image, output_folder='segments', num_top_components=7):
         # Convert the cropped component back to PIL image
         cropped_pil = Image.fromarray(cv2.cvtColor(cropped_component, cv2.COLOR_BGR2RGB))
         
-        # Save each cropped component as an individual image (optional)
-        component_filename = os.path.join(output_folder, f'component_{i+1}.jpg')
-        cropped_pil.save(component_filename)
-        
         # Append the cropped PIL image to the results list
         result_images.append(cropped_pil)
 
     # Convert the image without top components back to PIL image
     image_without_top_components_pil = Image.fromarray(cv2.cvtColor(image_without_top_components, cv2.COLOR_BGR2RGB))
     
+    print(encode_image_base64(image_without_top_components_pil))
+    
     # Append the image with the top components removed to the results list
-    result_images.append(image_without_top_components_pil)
+    result_images.append(encode_image_base64(image_without_top_components_pil))
 
     print(len(result_images))
 

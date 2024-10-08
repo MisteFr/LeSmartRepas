@@ -33,10 +33,10 @@ def mistral(images, client, model, text, personal_details = None):
     if images != None:
         # Convert the image to base64 string
         for image in images:
-            image_base64 = encode_image_base64(image)
+            #image_base64 = encode_image_base64(image)
             messages["content"].append({
                             "type": "image_url",
-                            "image_url": f"data:image/jpeg;base64,{image_base64}"
+                            "image_url": f"data:image/jpeg;base64,{image}"
                         })
         
     # Prepare the request payload
