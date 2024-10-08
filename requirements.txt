@@ -5,3 +5,5 @@ eventlet
 mistralai
 Pillow
 opencv-python
+flask_cors
+numpy
