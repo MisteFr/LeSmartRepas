@@ -1,0 +1,2 @@
+[setup]
+packages = ["python3", "gcc", "libGL", "ffmpeg", "libglib-2.0.so.0", "libsm6", "libxext6", "libxrender1"]
