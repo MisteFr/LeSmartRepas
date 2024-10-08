@@ -471,7 +471,7 @@ function App() {
             </Box>
           )} */}
 
-        <div className={ingredients.length == 0 ? 'animated-line-grey' : 'animated-line'} />
+        <div className={ingredients.length === 0 ? 'animated-line-grey' : 'animated-line'} />
           
         <Box
           sx={{
@@ -603,7 +603,7 @@ function App() {
 
         {/* Meal Preparation Section */}
 
-        <div className={meals.length == 0 ? 'animated-line-grey' : 'animated-line'} />
+        <div className={meals.length === 0 ? 'animated-line-grey' : 'animated-line'} />
 
         <Box
           sx={{
@@ -692,7 +692,7 @@ function App() {
           )}
         </Box>
 
-        <div className={shoppingList.length == 0 ? 'animated-line-grey' : 'animated-line'} />
+        <div className={shoppingList.length === 0 ? 'animated-line-grey' : 'animated-line'} />
 
         {/* Shopping List Section */}
         <Box
