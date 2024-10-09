@@ -12,7 +12,6 @@ import {
   Textarea,
   CircularProgress,
 } from "@mui/joy";
-import io from "socket.io-client";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 function App() {
@@ -36,15 +35,85 @@ function App() {
   const [isMealPreparationOpen, setIsMealPreparationOpen] = useState(false); // Toggle for collapsible form
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(true); // Toggle for collapsible form
   const [isFilledFromStorage, setIsFilledFromStorage] = useState(false); // Track if data loaded from storage
-  const socketRef = useRef();
+  const wsRef = useRef(null);
 
   // Initialize WebSocket connection to the backend
-  if (!socketRef.current) {
-    socketRef.current = io("http://194.9.172.109:5001", {
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-    });
-  }
+  useEffect(() => {
+    if (!wsRef.current) {
+      wsRef.current = new WebSocket("ws://localhost:5001");
+
+      wsRef.current.onopen = () => {
+        console.log("WebSocket connection opened");
+
+        const storedIngredients = JSON.parse(
+          localStorage.getItem("ingredientsList")
+        );
+        if (storedIngredients && storedIngredients.length > 0) {
+          setIngredients(storedIngredients);
+          setIsUploadFileSetupOpen(false);
+          if (wsRef.current.readyState === WebSocket.OPEN) {
+            wsRef.current.send(
+              JSON.stringify({
+                event: "send_data",
+                data: {
+                  ingredients: localStorage.getItem("ingredientsList"),
+                  pref: sessionStorage.getItem("nutritionalSetup"),
+                },
+              })
+            );
+
+            if(localStorage.getItem("ingredientsList") != null){
+              setMeals([]);
+              setIsMealPreparationOpen(false);
+              setShoppingList([]);
+              setIsShoppingListOpen(false);
+            }
+          }
+        }
+      };
+
+      wsRef.current.onmessage = (event) => {
+        console.log(event)
+        
+          const data = JSON.parse(event.data);
+          if (data.ingredients) {
+            setIngredients(data.ingredients.ingredients);
+            localStorage.setItem(
+              "ingredientsList",
+              JSON.stringify(data.ingredients.ingredients)
+            );
+            setLoading(false);
+            setIsUploadFileSetupOpen(false);
+
+            //waiting for meals next
+            setMeals([]);
+            setIsMealPreparationOpen(false);
+          }
+          if (data.recipes) {
+            setMeals(data.recipes); // Save the recipes to the new state variable
+            setIsMealPreparationOpen(true); // Automatically open the meal section
+          }
+          if (data.messageRecipes) {
+            const message = data.messageRecipes;
+            setMeals([{ message }]); // Store the message in an array to treat it as a "meal"
+            setIsMealPreparationOpen(true);
+          }
+          if (data.shopping) {
+            setShoppingList(data.shopping);
+            setIsShoppingListOpen(true);
+          }
+        
+      };
+
+      wsRef.current.onclose = () => {
+        console.log("WebSocket connection closed");
+      };
+
+      wsRef.current.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+    }
+  }, []);
 
   // Load data from session storage on page load
   useEffect(() => {
@@ -64,19 +133,6 @@ function App() {
       setIsFilledFromStorage(true);
     }
   }, []);
-
-  // Load data from localStorage on page load
-  useEffect(() => {
-    const storedIngredients = JSON.parse(
-      localStorage.getItem("ingredientsList")
-    );
-    if (storedIngredients && storedIngredients.length > 0) {
-      setIngredients(storedIngredients);
-      setIsUploadFileSetupOpen(false);
-      socketRef.current.emit("request_recipes", {ingredients: JSON.stringify(storedIngredients), pref:  sessionStorage.getItem("nutritionalSetup")});
-    }
-  }, []);
-
 
   // Clear the ingredients list both from state and localStorage
   const handleClearIngredients = () => {
@@ -103,7 +159,16 @@ function App() {
     sessionStorage.setItem("nutritionalSetup", JSON.stringify(userData));
 
     // Send data to the backend
-    //socketRef.current.emit("submit_user_data", userData);
+    if (wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(
+        JSON.stringify({ event: "send_data", 
+          data: { 
+            ingredients: localStorage.getItem("ingredientsList"),
+            pref: sessionStorage.getItem("nutritionalSetup") 
+          } 
+        })
+      );
+    }
 
     // Collapse form if filled in
     setIsNutritionalSetupOpen(false);
@@ -126,7 +191,14 @@ function App() {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Image = reader.result.split(",")[1]; // Only send the base64 part
-        socketRef.current.emit("submit_image", { image: base64Image, pref: sessionStorage.getItem("nutritionalSetup") });
+        if (wsRef.current.readyState === WebSocket.OPEN) {
+          wsRef.current.send(
+            JSON.stringify({
+              event: "submit_image",
+              data: { image: base64Image, pref: sessionStorage.getItem("nutritionalSetup") },
+            })
+          );
+        }
       };
       reader.readAsDataURL(image);
     }
@@ -139,40 +211,12 @@ function App() {
       setImage(file);
     }
 
-    handleClearIngredients()
-    setMeals([])
+    handleClearIngredients();
+    setMeals([]);
     setIsMealPreparationOpen(false);
-    setShoppingList([])
-    setIsShoppingListOpen(false)
+    setShoppingList([]);
+    setIsShoppingListOpen(false);
   };
-
-  // Handle response from backend, append new ingredients to the list
-  socketRef.current.on("response", (data) => {
-    if (data.ingredients) {
-      console.log(data.ingredients)
-      setIngredients(data.ingredients.ingredients);
-      localStorage.setItem('ingredientsList', JSON.stringify(data.ingredients.ingredients));
-      setLoading(false);
-      setIsUploadFileSetupOpen(false);
-
-      //waiting for meals next
-      setMeals([])
-      setIsMealPreparationOpen(false);
-    }
-    if(data.recipes) {
-      setMeals(data.recipes); // Save the recipes to the new state variable
-      setIsMealPreparationOpen(true); // Automatically open the meal section
-    }
-    if(data.messageRecipes){
-      const message = data.messageRecipes;
-      setMeals([{ message }]);  // Store the message in an array to treat it as a "meal"
-      setIsMealPreparationOpen(true);
-    }
-    if(data.shopping){
-      setShoppingList(data.shopping)
-      setIsShoppingListOpen(true)
-    }
-  });
 
   // Handle changes in the table
   const handleItemChange = (index, field, value) => {
@@ -198,13 +242,21 @@ function App() {
 
   const handleSaveChanges = () => {
     localStorage.setItem("ingredientsList", JSON.stringify(ingredients));
-    console.log("Updated Ingredients:", ingredients);
-    // Send data to the backend
-    socketRef.current.emit("request_recipes", {ingredients: JSON.stringify(ingredients), pref:  sessionStorage.getItem("nutritionalSetup")});
-    setIsIngredientsListOpen(false)
-    setMeals([])
+    if (wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(
+        JSON.stringify({
+          event: "send_data",
+          data: {
+            ingredients: localStorage.getItem("ingredientsList"),
+            pref: sessionStorage.getItem("nutritionalSetup"),
+          },
+        })
+      );
+    }
+    setIsIngredientsListOpen(false);
+    setMeals([]);
     setIsMealPreparationOpen(false);
-    setShoppingList([])
+    setShoppingList([]);
     setIsShoppingListOpen(false);
   };
 
@@ -217,7 +269,7 @@ function App() {
         {/* Centered Title with Fridge Emoji */}
         <Box
           sx={{
-            width: "100%",
+            width: "100vw",
             backgroundColor: "#f0f0f0",
             padding: "20px",
             textAlign: "center",
@@ -663,18 +715,22 @@ function App() {
                   </Typography>
 
                   {/* Ingredients List */}
-                  <Typography variant="body1" mb={1} sx={{ color: "black" }}>
-                    <strong>Ingredients:</strong>
+                  <Box component="div">
+                    <Typography variant="body1" mb={1} sx={{ color: "black" }}>
+                      <strong>Ingredients:</strong>
+                    </Typography>
                     <ul>
                       {meal.ingredients.split("\n").map((ingredient, idx) => (
                         <li key={idx} style={{ marginLeft: "20px" }}>{ingredient.replace("-", "").trim()}</li>
                       ))}
                     </ul>
-                  </Typography>
+                  </Box>
 
                   {/* How to Prepare */}
-                  <Typography variant="body1" mb={2} sx={{ color: "black" }}>
-                    <strong>How to Prepare:</strong>
+                  <Box component="div" mb={2}>
+                    <Typography variant="body1" sx={{ color: "black" }}>
+                      <strong>How to Prepare:</strong>
+                    </Typography>
                     <ol>
                       {meal.howToPrepare.split("\n").map((instruction, idx) => (
                         <li key={idx} style={{ marginLeft: "20px", marginTop: "10px" }}>
@@ -682,7 +738,7 @@ function App() {
                         </li>
                       ))}
                     </ol>
-                  </Typography>
+                  </Box>
                   </>
                 )}
                 </li>
@@ -752,7 +808,7 @@ function App() {
         </Box>
         <Box
   sx={{
-    width: "100%",
+    width: "100vw",
     backgroundColor: "#f0f0f0",
     padding: "10px",
     textAlign: "center",
