@@ -40,7 +40,7 @@ function App() {
   // Initialize WebSocket connection to the backend
   useEffect(() => {
     if (!wsRef.current) {
-      wsRef.current = new WebSocket("ws://localhost:5001");
+      wsRef.current = new WebSocket("wss://ws.miste.fr");
 
       wsRef.current.onopen = () => {
         console.log("WebSocket connection opened");
@@ -73,7 +73,7 @@ function App() {
       };
 
       wsRef.current.onmessage = (event) => {
-        console.log(event)
+        //console.log(event)
         
           const data = JSON.parse(event.data);
           if (data.ingredients) {
