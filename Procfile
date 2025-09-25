@@ -1,1 +1,0 @@
-web: cd HackUKFrontEnd/my-app && npm install && npm run build && cd ../../.. && python HackUKBackend/script.py
