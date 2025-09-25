@@ -40,7 +40,8 @@ function App() {
   // Initialize WebSocket connection to the backend
   useEffect(() => {
     if (!wsRef.current) {
-      wsRef.current = new WebSocket(`ws://${window.location.host}`);
+      const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+      wsRef.current = new WebSocket(`${protocol}://${window.location.host}`);
 
       wsRef.current.onopen = () => {
         console.log("WebSocket connection opened");
