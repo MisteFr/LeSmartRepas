@@ -22,6 +22,9 @@ RUN npm install && npm run build
 # Install serve to serve static files
 RUN npm install -g serve
 
+# List files in build directory
+RUN ls -l build
+
 # Expose port (Railway will set $PORT)
 EXPOSE 5000
 
