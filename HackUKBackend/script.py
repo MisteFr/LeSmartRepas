@@ -9,6 +9,9 @@ from inventory import update_ingredients
 from recipes import get_possible_recipes
 from shopping import get_shopping
 import websockets
+import http.server
+import socketserver
+import threading
 
 last_generate_meals_call = 0
 last_get_shopping_call = 0
@@ -157,6 +160,18 @@ async def start_server():
     port = int(os.environ.get("PORT", 5001))
     async with serve(websocket_handler, "0.0.0.0", port):
         await asyncio.Future()
+
+def serve_static():
+    web_dir = os.path.join(os.path.dirname(__file__), '../HackUKFrontEnd/my-app/build')
+    os.chdir(web_dir)
+    handler = http.server.SimpleHTTPRequestHandler
+    port = int(os.environ.get("PORT", 5001))
+    with socketserver.TCPServer(("", port), handler) as httpd:
+        print(f"Serving React build at http://0.0.0.0:{port}")
+        httpd.serve_forever()
+
+# Start static server in a thread
+threading.Thread(target=serve_static, daemon=True).start()
 
 if __name__ == "__main__":
     # Run the WebSocket server
