@@ -7,3 +7,5 @@ Pillow
 opencv-python
 flask_cors
 numpy
+websockets
+

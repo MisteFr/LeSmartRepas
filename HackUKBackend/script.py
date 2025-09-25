@@ -19,7 +19,7 @@ if not api_key:
     raise ValueError("Mistral API key is not set. Please set it in the environment.")
 
 # WebSocket handler
-async def websocket_handler(websocket, path):
+async def websocket_handler(websocket):
     while True:
         try:
             message = await websocket.recv()
@@ -154,7 +154,8 @@ async def handle_request_data(data, websocket):
         await websocket.send(json.dumps({"error": "Failed to parse request data"}))
 
 async def start_server():
-    async with serve(websocket_handler, "localhost", 5001):
+    port = int(os.environ.get("PORT", 5001))
+    async with serve(websocket_handler, "0.0.0.0", port):
         await asyncio.Future()
 
 if __name__ == "__main__":
