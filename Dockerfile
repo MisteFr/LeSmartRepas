@@ -36,5 +36,5 @@ WORKDIR /app/HackUKBackend
 # Expose port (Railway will set $PORT)
 EXPOSE 5001
 
-# Start backend
-CMD ["python", "script.py"]
+# Start backend using absolute path
+CMD ["python", "/app/HackUKBackend/script.py"]
