@@ -1,40 +1,29 @@
 # Use official Python image
-FROM python:3.10-slim
-
 # Install system dependencies for OpenCV and Node
-RUN apt-get update && \
-    apt-get install -y \
-        libgl1 \
-        libglib2.0-0 \
-        libsm6 \
-        libxext6 \
-        libxrender1 \
-        ffmpeg \
-        nodejs \
-        npm \
-        gcc \
-    && rm -rf /var/lib/apt/lists/*
-
 # Set workdir
+# Copy backend files
+# Install Python dependencies
+# Build React frontend
+# Return to backend directory
+# Expose port (Railway will set $PORT)
+# Start backend using absolute path
+FROM node:18-slim
+
+# Set working directory
 WORKDIR /app
 
-# Copy backend files
-COPY HackUKBackend ./HackUKBackend
+# Copy React app
+COPY HackUKFrontEnd/my-app ./my-app
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Build React frontend
-COPY HackUKFrontEnd/my-app ./HackUKFrontEnd/my-app
-WORKDIR /app/HackUKFrontEnd/my-app
+# Build React app
+WORKDIR /app/my-app
 RUN npm install && npm run build
 
-# Return to backend directory
-WORKDIR /app/HackUKBackend
+# Install serve to serve static files
+RUN npm install -g serve
 
 # Expose port (Railway will set $PORT)
-EXPOSE 5001
+EXPOSE 5000
 
-# Start backend using absolute path
-CMD ["python", "/app/HackUKBackend/script.py"]
+# Start static server
+CMD ["serve", "-s", "build", "-l", "5000"]
