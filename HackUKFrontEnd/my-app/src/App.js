@@ -41,7 +41,7 @@ function App() {
   useEffect(() => {
     if (!wsRef.current) {
       const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-      wsRef.current = new WebSocket(`wss://web-production-6d5e.up.railway.app:5001`);
+      wsRef.current = new WebSocket(`wss://web-production-7b549.up.railway.app:5001`);
 
       wsRef.current.onopen = () => {
         console.log("WebSocket connection opened");
